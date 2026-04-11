@@ -2,6 +2,7 @@ package leetcode.blind75.b01.ArraysAndHashing;
 
 /**
  * @author David
+ * Problem: https://leetcode.com/problems/product-of-array-except-self/
  
  Given an integer array nums, return an array answer such that answer[i] is equal to the product of all the elements of nums except nums[i].
 
