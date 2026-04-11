@@ -1,0 +1,40 @@
+system design interview : volume 1 by alex xu
+1. rate limiter
+2. consistent hashing
+3. key-value store
+4. unique ID generator in distributed systems
+5. url shortener
+6. web crawler
+7. notification system
+8. news feed system
+9. chat system
+10. search autocomplete system
+11. youtube
+12. google drive
+
+system design interview : volume 2 by alex xu
+1. proximity service
+2. nearby friends
+3. google maps
+4. distributed message queue
+5. metrics monitoring and alerting System
+6. ad click event aggregation
+7. hotel reservation system
+8. distributed email service
+9. s3-like object storage
+10. real-time gaming leaderboard
+11. payment system
+12. digital wallet
+13. stock exchange
+
+more questions
+1. ride-sharing system
+2. food delivery system
+3. ticket booking system
+4. multiplayer online game
+5. content delivery network (CDN)
+6. recommendation system
+7. file versioning system
+8. podcast streaming service
+9. fitness tracking system
+10. virtual classroom platform
