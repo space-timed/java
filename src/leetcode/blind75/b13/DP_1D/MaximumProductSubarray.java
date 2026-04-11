@@ -2,6 +2,7 @@ package leetcode.blind75.b13.DP_1D;
 
 /**
  * @author David
+ * Problem: https://leetcode.com/problems/maximum-product-subarray/
  
  Given an integer array nums, find a contiguous non-empty subarray within the array that has the largest product, and return the product.
 

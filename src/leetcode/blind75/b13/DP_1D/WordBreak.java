@@ -2,6 +2,7 @@ package leetcode.blind75.b13.DP_1D;
 
 /**
  * @author David
+ * Problem: https://leetcode.com/problems/word-break/
  
  Given a string s and a dictionary of strings wordDict, return true if s can be segmented into a space-separated sequence of one or more dictionary words.
 

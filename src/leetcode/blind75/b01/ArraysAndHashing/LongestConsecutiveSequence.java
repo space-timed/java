@@ -2,6 +2,7 @@ package leetcode.blind75.b01.ArraysAndHashing;
 
 /**
  * @author David
+ * Problem: https://leetcode.com/problems/longest-consecutive-sequence/
  
  Given an unsorted array of integers nums, return the length of the longest consecutive elements sequence.
 

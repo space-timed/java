@@ -2,6 +2,7 @@ package leetcode.blind75.b10.Tries;
 
 /**
  * @author David
+ * Problem: https://leetcode.com/problems/design-add-and-search-words-data-structure/
  
  Design a data structure that supports adding new words and finding if a string matches any previously added string.
 
