@@ -1,7 +1,6 @@
 package leetcode.blind75.b17.MathAndGeometry;
 
 /**
- * @author David
  * Problem: https://leetcode.com/problems/set-matrix-zeroes/
  
  Given an m x n integer matrix matrix, if an element is 0, set its entire row and column to 0's.
@@ -36,6 +35,7 @@ A straightforward solution using O(mn) space is probably a bad idea.
 A simple improvement uses O(m + n) space, but still not the best solution.
 Could you devise a constant space solution?
  
+ * @author David
  */
 public class SetMatrixZeroes {
 

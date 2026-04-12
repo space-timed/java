@@ -1,7 +1,6 @@
 package leetcode.blind75.b11.Graphs;
 
 /**
- * @author David
  * Problem: https://leetcode.com/problems/number-of-connected-components-in-an-undirected-graph/
  
  Given an undirected graph, the task is to print all the connected components line by line. 
@@ -19,6 +18,7 @@ Output:
 Explanation: There are 2 different connected components.
 They are {0, 1, 2} and {3, 4}.
  
+ * @author David
  */
 public class NumberOfConnectedComponentsInAnUndirectedGraph {
 

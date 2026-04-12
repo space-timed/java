@@ -1,7 +1,6 @@
 package leetcode.blind75.b06.LInkedList;
 
 /**
- * @author David
  * Problem: https://leetcode.com/problems/reverse-linked-list/
  
  Given the head of a singly linked list, reverse the list, and return the reversed list.
@@ -32,6 +31,7 @@ The number of nodes in the list is the range [0, 5000].
 
 Follow up: A linked list can be reversed either iteratively or recursively. Could you implement both?
  
+ * @author David
  */
 public class ReverseLinkedList {
 

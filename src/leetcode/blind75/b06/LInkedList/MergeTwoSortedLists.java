@@ -1,7 +1,6 @@
 package leetcode.blind75.b06.LInkedList;
 
 /**
- * @author David
  * Problem: https://leetcode.com/problems/merge-two-sorted-lists/
  
  You are given the heads of two sorted linked lists list1 and list2.
@@ -33,6 +32,7 @@ The number of nodes in both lists is in the range [0, 50].
 -100 <= Node.val <= 100
 Both list1 and list2 are sorted in non-decreasing order.
  
+ * @author David
  */
 public class MergeTwoSortedLists {
 

@@ -1,7 +1,6 @@
 package leetcode.blind75.b16.Intervals;
 
 /**
- * @author David
  * Problem: https://leetcode.com/problems/meeting-rooms/
  
  There is one meeting room in a firm. There are N meetings in the form of (S[i], F[i]) where S[i] is the start time of meeting i and F[i] is the finish time of meeting i. The task is to find the maximum number of meetings that can be accommodated in the meeting room. Print all meeting numbers
@@ -21,6 +20,7 @@ Output : 6 7 1
 
 
  
+ * @author David
  */
 public class MeetingRooms {
 

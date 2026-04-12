@@ -1,7 +1,6 @@
 package leetcode.blind75.b10.Tries;
 
 /**
- * @author David
  * Problem: https://leetcode.com/problems/design-add-and-search-words-data-structure/
  
  Design a data structure that supports adding new words and finding if a string matches any previously added string.
@@ -40,6 +39,7 @@ word in search consist of '.' or lowercase English letters.
 There will be at most 3 dots in word for search queries.
 At most 10^4 calls will be made to addWord and search.
  
+ * @author David
  */
 public class DesignAddAndSearchWordsDataStructure {
 

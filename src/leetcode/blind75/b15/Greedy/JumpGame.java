@@ -1,7 +1,6 @@
 package leetcode.blind75.b15.Greedy;
 
 /**
- * @author David
  * Problem: https://leetcode.com/problems/jump-game/
  
  You are given an integer array nums. You are initially positioned at the array's first index, and each element in the array represents your maximum jump length at that position.
@@ -27,6 +26,7 @@ m
 1 <= nums.length <= 10^4
 0 <= nums[i] <= 10^5
  
+ * @author David
  */
 public class JumpGame {
 

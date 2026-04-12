@@ -1,7 +1,6 @@
 package leetcode.blind75.b07.Trees;
 
 /**
- * @author David
  * Problem: https://leetcode.com/problems/maximum-depth-of-binary-tree/
  
  Given the root of a binary tree, return its maximum depth.
@@ -26,6 +25,7 @@ Constraints:
 The number of nodes in the tree is in the range [0, 10^4].
 -100 <= Node.val <= 100
  
+ * @author David
  */
 public class MaximumDepthOfBinaryTree {
 

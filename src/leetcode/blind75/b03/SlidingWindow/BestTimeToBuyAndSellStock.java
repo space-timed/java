@@ -1,7 +1,6 @@
 package leetcode.blind75.b03.SlidingWindow;
 
 /**
- * @author David
  * Problem: https://leetcode.com/problems/best-time-to-buy-and-sell-stock/
  
  You are given an array prices where prices[i] is the price of a given stock on the ith day.
@@ -30,6 +29,7 @@ Constraints:
 1 <= prices.length <= 10^5
 0 <= prices[i] <= 10^4
  
+ * @author David
  */
 public class BestTimeToBuyAndSellStock {
 

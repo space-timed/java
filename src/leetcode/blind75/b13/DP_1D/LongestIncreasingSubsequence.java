@@ -1,7 +1,6 @@
 package leetcode.blind75.b13.DP_1D;
 
 /**
- * @author David
  * Problem: https://leetcode.com/problems/longest-increasing-subsequence/
  
  Given an integer array nums, return the length of the longest strictly increasing subsequence.
@@ -33,6 +32,7 @@ Constraints:
 
 Follow up: Can you come up with an algorithm that runs in O(n log(n)) time complexity?
  
+ * @author David
  */
 public class LongestIncreasingSubsequence {
 

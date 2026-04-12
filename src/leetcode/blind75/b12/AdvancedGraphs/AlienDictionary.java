@@ -1,7 +1,6 @@
 package leetcode.blind75.b12.AdvancedGraphs;
 
 /**
- * @author David
  * Problem: https://leetcode.com/problems/alien-dictionary/
  
  Given a sorted dictionary (array of words) of an alien language, find order of characters in the language.
@@ -17,6 +16,7 @@ Similarly we can find other orders.
 Input:  words[] = {"caa", "aaa", "aab"}
 Output: Order of characters is 'c', 'a', 'b'
  
+ * @author David
  */
 public class AlienDictionary {
 

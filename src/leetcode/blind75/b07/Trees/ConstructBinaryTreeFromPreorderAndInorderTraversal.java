@@ -1,7 +1,6 @@
 package leetcode.blind75.b07.Trees;
 
 /**
- * @author David
  * Problem: https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/
  
  Given two integer arrays preorder and inorder where preorder is the preorder traversal of a binary tree and inorder is the inorder traversal of the same tree, construct and return the binary tree.
@@ -29,6 +28,7 @@ Each value of inorder also appears in preorder.
 preorder is guaranteed to be the preorder traversal of the tree.
 inorder is guaranteed to be the inorder traversal of the tree.
  
+ * @author David
  */
 public class ConstructBinaryTreeFromPreorderAndInorderTraversal {
 

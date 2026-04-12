@@ -1,7 +1,6 @@
 package leetcode.blind75.b08.HeapOrPriorityQueue;
 
 /**
- * @author David
  * Problem: https://leetcode.com/problems/find-median-from-data-stream/
  
  The median is the middle value in an ordered integer list. If the size of the list is even, there is no middle value and the median is the mean of the two middle values.
@@ -44,6 +43,7 @@ Follow up:
 If all integer numbers from the stream are in the range [0, 100], how would you optimize your solution?
 If 99% of all integer numbers from the stream are in the range [0, 100], how would you optimize your solution?
  
+ * @author David
  */
 public class FindMedianFromDataStream {
 

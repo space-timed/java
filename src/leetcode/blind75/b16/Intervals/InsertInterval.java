@@ -1,7 +1,6 @@
 package leetcode.blind75.b16.Intervals;
 
 /**
- * @author David
  * Problem: https://leetcode.com/problems/insert-interval/
  
  You are given an array of non-overlapping intervals intervals where intervals[i] = [starti, endi] represent the start and the end of the ith interval and intervals is sorted in ascending order by starti. You are also given an interval newInterval = [start, end] that represents the start and end of another interval.
@@ -32,6 +31,7 @@ intervals is sorted by starti in ascending order.
 newInterval.length == 2
 0 <= start <= end <= 10^5
  
+ * @author David
  */
 public class InsertInterval {
 

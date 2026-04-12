@@ -1,7 +1,6 @@
 package leetcode.blind75.b06.LInkedList;
 
 /**
- * @author David
  * Problem: https://leetcode.com/problems/merge-k-sorted-lists/
  
  You are given an array of k linked-lists lists, each linked-list is sorted in ascending order.
@@ -41,6 +40,7 @@ k == lists.length
 lists[i] is sorted in ascending order.
 The sum of lists[i].length will not exceed 104.
  
+ * @author David
  */
 public class Merge_k_SortedLists {
 

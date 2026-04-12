@@ -1,7 +1,6 @@
 package leetcode.blind75.b01.ArraysAndHashing;
 
 /**
- * @author David
  * Problem: https://leetcode.com/problems/encode-and-decode-strings/
  
  An encoded string (s) is given, the task is to decode it. The pattern in which the strings are encoded is as follows. 
@@ -22,6 +21,7 @@ Output : abbabb
 Input : str[] = "3[b2[ca]]"
 Output : bcacabcacabcaca
  
+ * @author David
  */
 public class EndodeAndDecodeStrings {
 

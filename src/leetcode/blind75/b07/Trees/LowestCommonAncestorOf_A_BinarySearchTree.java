@@ -1,7 +1,6 @@
 package leetcode.blind75.b07.Trees;
 
 /**
- * @author David
  * Problem: https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/
  
  Given a binary search tree (BST), find the lowest common ancestor (LCA) node of two given nodes in the BST.
@@ -36,6 +35,7 @@ All Node.val are unique.
 p != q
 p and q will exist in the BST.
  
+ * @author David
  */
 public class LowestCommonAncestorOf_A_BinarySearchTree {
 
