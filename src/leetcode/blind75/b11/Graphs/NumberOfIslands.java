@@ -1,7 +1,6 @@
 package leetcode.blind75.b11.Graphs;
 
 /**
- * @author David
  * Problem: https://leetcode.com/problems/number-of-islands/
  
  Given an m x n 2D binary grid grid which represents a map of '1's (land) and '0's (water), return the number of islands.
@@ -37,6 +36,7 @@ n == grid[i].length
 1 <= m, n <= 300
 grid[i][j] is '0' or '1'.
  
+ * @author David
  */
 public class NumberOfIslands {
 

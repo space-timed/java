@@ -1,7 +1,6 @@
 package leetcode.blind75.b13.DP_1D;
 
 /**
- * @author David
  * Problem: https://leetcode.com/problems/palindromic-substrings/
  
  Given a string s, return the number of palindromic substrings in it.
@@ -29,6 +28,7 @@ Constraints:
 1 <= s.length <= 1000
 s consists of lowercase English letters.
  
+ * @author David
  */
 public class PalindromicSubstrings {
 

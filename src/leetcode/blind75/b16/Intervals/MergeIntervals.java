@@ -1,7 +1,6 @@
 package leetcode.blind75.b16.Intervals;
 
 /**
- * @author David
  * Problem: https://leetcode.com/problems/merge-intervals/
  
  Given an array of intervals where intervals[i] = [starti, endi], merge all overlapping intervals, and return an array of the non-overlapping intervals that cover all the intervals in the input.
@@ -26,6 +25,7 @@ Constraints:
 intervals[i].length == 2
 0 <= starti <= endi <= 10^4
  
+ * @author David
  */
 public class MergeIntervals {
 

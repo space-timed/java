@@ -1,7 +1,6 @@
 package leetcode.blind75.b11.Graphs;
 
 /**
- * @author David
  * Problem: https://leetcode.com/problems/pacific-atlantic-water-flow/
  
  There is an m x n rectangular island that borders both the Pacific Ocean and Atlantic Ocean. The Pacific Ocean touches the island's left and top edges, and the Atlantic Ocean touches the island's right and bottom edges.
@@ -49,6 +48,7 @@ n == heights[r].length
 1 <= m, n <= 200
 0 <= heights[r][c] <= 10^5
  
+ * @author David
  */
 public class PacificAtlanticWaterFlow {
 

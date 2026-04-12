@@ -1,7 +1,6 @@
 package leetcode.blind75.b18.BitManipulation;
 
 /**
- * @author David
  * Problem: https://leetcode.com/problems/reverse-bits/
  
  Reverse bits of a given 32 bits unsigned integer.
@@ -31,6 +30,7 @@ The input must be a binary string of length 32
 
 Follow up: If this function is called many times, how would you optimize it?
  
+ * @author David
  */
 public class ReverseBits {
 

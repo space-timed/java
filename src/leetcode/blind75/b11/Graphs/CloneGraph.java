@@ -1,7 +1,6 @@
 package leetcode.blind75.b11.Graphs;
 
 /**
- * @author David
  * Problem: https://leetcode.com/problems/clone-graph/
  
  Given a reference of a node in a connected undirected graph.
@@ -57,6 +56,7 @@ Node.val is unique for each node.
 There are no repeated edges and no self-loops in the graph.
 The Graph is connected and all nodes can be visited starting from the given node.
  
+ * @author David
  */
 public class CloneGraph {
 

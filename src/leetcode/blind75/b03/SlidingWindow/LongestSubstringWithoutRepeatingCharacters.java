@@ -2,7 +2,6 @@ package leetcode.blind75.b03.SlidingWindow;
 
 
 /**
- * @author David
  * Problem: https://leetcode.com/problems/longest-substring-without-repeating-characters/
  * 
 
@@ -31,6 +30,7 @@ Constraints:
 s consists of English letters, digits, symbols and spaces.
 
  *
+ * @author David
  */
 public class LongestSubstringWithoutRepeatingCharacters {
 

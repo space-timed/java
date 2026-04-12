@@ -1,7 +1,6 @@
 package leetcode.blind75.b07.Trees;
 
 /**
- * @author David
  * Problem: https://leetcode.com/problems/serialize-and-deserialize-bst/
  
  Serialization is converting a data structure or object into a sequence of bits so that it can be stored in a file or memory buffer, or transmitted across a network connection link to be reconstructed later in the same or another computer environment.
@@ -28,6 +27,7 @@ The number of nodes in the tree is in the range [0, 10^4].
 0 <= Node.val <= 10^4
 The input tree is guaranteed to be a binary search tree.
  
+ * @author David
  */
 public class SerializeAndDeserializeBST {
 

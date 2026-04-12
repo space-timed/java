@@ -1,7 +1,6 @@
 package leetcode.blind75.b13.DP_1D;
 
 /**
- * @author David
  * Problem: https://leetcode.com/problems/longest-palindromic-substring/
  *
  *
@@ -28,6 +27,7 @@ Constraints:
 1 <= s.length <= 1000
 s consist of only digits and English letters.
 
+ * @author David
  */
 public class LongestPalindromicSubstring {
 

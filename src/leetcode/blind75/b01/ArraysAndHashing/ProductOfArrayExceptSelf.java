@@ -1,7 +1,6 @@
 package leetcode.blind75.b01.ArraysAndHashing;
 
 /**
- * @author David
  * Problem: https://leetcode.com/problems/product-of-array-except-self/
  
  Given an integer array nums, return an array answer such that answer[i] is equal to the product of all the elements of nums except nums[i].
@@ -31,6 +30,7 @@ The product of any prefix or suffix of nums is guaranteed to fit in a 32-bit int
 
 Follow up: Can you solve the problem in O(1) extra space complexity? (The output array does not count as extra space for space complexity analysis.)
  
+ * @author David
  */
 public class ProductOfArrayExceptSelf {
 

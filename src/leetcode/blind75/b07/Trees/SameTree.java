@@ -1,7 +1,6 @@
 package leetcode.blind75.b07.Trees;
 
 /**
- * @author David
  * Problem: https://leetcode.com/problems/same-tree/
  
  Given the roots of two binary trees p and q, write a function to check if they are the same or not.
@@ -32,6 +31,7 @@ Constraints:
 The number of nodes in both trees is in the range [0, 100].
 -10^4 <= Node.val <= 10^4
  
+ * @author David
  */
 public class SameTree {
 

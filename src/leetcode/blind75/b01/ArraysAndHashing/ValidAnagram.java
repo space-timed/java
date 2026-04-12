@@ -1,7 +1,6 @@
 package leetcode.blind75.b01.ArraysAndHashing;
 
 /**
- * @author David
  * Problem: https://leetcode.com/problems/valid-anagram/
  
  Given two strings s and t, return true if t is an anagram of s, and false otherwise.
@@ -28,6 +27,7 @@ s and t consist of lowercase English letters.
 
 Follow up: What if the inputs contain Unicode characters? How would you adapt your solution to such a case?
  
+ * @author David
  */
 public class ValidAnagram {
 

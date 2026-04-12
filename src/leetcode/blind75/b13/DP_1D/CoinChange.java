@@ -1,7 +1,6 @@
 package leetcode.blind75.b13.DP_1D;
 
 /**
- * @author David
  * Problem: https://leetcode.com/problems/coin-change/
  
  You are given an integer array coins representing coins of different denominations and an integer amount representing a total amount of money.
@@ -33,6 +32,7 @@ Constraints:
 1 <= coins[i] <= 2^31 - 1
 0 <= amount <= 10^4
  
+ * @author David
  */
 public class CoinChange {
 

@@ -1,7 +1,6 @@
 package leetcode.blind75.b06.LInkedList;
 
 /**
- * @author David
  * Problem: https://leetcode.com/problems/linked-list-cycle/
  
  Given head, the head of a linked list, determine if the linked list has a cycle in it.
@@ -41,6 +40,7 @@ pos is -1 or a valid index in the linked-list.
 
 Follow up: Can you solve it using O(1) (i.e. constant) memory?
  
+ * @author David
  */
 public class LinkedListCycle {
 

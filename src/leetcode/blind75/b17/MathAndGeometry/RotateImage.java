@@ -1,7 +1,6 @@
 package leetcode.blind75.b17.MathAndGeometry;
 
 /**
- * @author David
  * Problem: https://leetcode.com/problems/rotate-image/
  
  You are given an n x n 2D matrix representing an image, rotate the image by 90 degrees (clockwise).
@@ -28,6 +27,7 @@ n == matrix.length == matrix[i].length
 1 <= n <= 20
 -1000 <= matrix[i][j] <= 1000
  
+ * @author David
  */
 public class RotateImage {
 

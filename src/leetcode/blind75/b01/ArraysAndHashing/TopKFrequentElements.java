@@ -1,7 +1,6 @@
 package leetcode.blind75.b01.ArraysAndHashing;
 
 /**
- * @author David
  * Problem: https://leetcode.com/problems/top-k-frequent-elements/
  
  Given an integer array nums and an integer k, return the k most frequent elements. You may return the answer in any order.
@@ -28,6 +27,7 @@ It is guaranteed that the answer is unique.
 
 Follow up: Your algorithm's time complexity must be better than O(n log n), where n is the array's size.
  
+ * @author David
  */
 public class TopKFrequentElements {
 
