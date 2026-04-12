@@ -30,7 +30,8 @@ Constraints:
 s consists of English letters, digits, symbols and spaces.
 
  *
- * @author David
+ * <br/>
+@author David
  */
 public class LongestSubstringWithoutRepeatingCharacters {
 

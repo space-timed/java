@@ -35,7 +35,8 @@ Constraints:
 3 <= nums.length <= 3000
 -10^5 <= nums[i] <= 10^5
  * Problem: https://leetcode.com/problems/3sum/
- * @author David
+ * <br/>
+@author David
  */
 public class ThreeSum {
 

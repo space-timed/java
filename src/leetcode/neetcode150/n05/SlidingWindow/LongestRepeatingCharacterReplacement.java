@@ -29,7 +29,8 @@ s consists of only uppercase English letters.
 0 <= k <= s.length
  
  
- * @author David
+ * <br/>
+@author David
  */
 public class LongestRepeatingCharacterReplacement {
 

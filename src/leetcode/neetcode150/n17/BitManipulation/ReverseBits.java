@@ -30,7 +30,8 @@ The input must be a binary string of length 32
 
 Follow up: If this function is called many times, how would you optimize it?
  
- * @author David
+ * <br/>
+@author David
  */
 public class ReverseBits {
 

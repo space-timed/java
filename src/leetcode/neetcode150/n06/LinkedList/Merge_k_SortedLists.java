@@ -40,7 +40,8 @@ k == lists.length
 lists[i] is sorted in ascending order.
 The sum of lists[i].length will not exceed 104.
  
- * @author David
+ * <br/>
+@author David
  */
 public class Merge_k_SortedLists {
 

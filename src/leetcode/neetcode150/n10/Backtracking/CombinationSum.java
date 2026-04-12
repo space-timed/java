@@ -36,7 +36,8 @@ Constraints:
 All elements of candidates are distinct.
 1 <= target <= 500
  
- * @author David
+ * <br/>
+@author David
  */
 public class CombinationSum {
 

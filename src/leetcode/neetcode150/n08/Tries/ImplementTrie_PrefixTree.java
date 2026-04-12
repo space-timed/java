@@ -37,7 +37,8 @@ Constraints:
 word and prefix consist only of lowercase English letters.
 At most 3 * 10^4 calls in total will be made to insert, search, and startsWith.
  
- * @author David
+ * <br/>
+@author David
  */
 public class ImplementTrie_PrefixTree {
 

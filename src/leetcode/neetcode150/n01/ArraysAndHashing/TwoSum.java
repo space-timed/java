@@ -35,7 +35,9 @@ Only one valid answer exists.
 
 Follow-up: Can you come up with an algorithm that is less than O(n^2) time complexity?
  * Problem: https://leetcode.com/problems/two-sum/
- * @author David
+ * <br/>
+<br/>
+@author David
  */
 public class TwoSum {
 

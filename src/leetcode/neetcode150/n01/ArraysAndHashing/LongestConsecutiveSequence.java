@@ -24,7 +24,9 @@ Constraints:
 0 <= nums.length <= 10^5
 -10^9 <= nums[i] <= 10^9
  * Problem: https://leetcode.com/problems/longest-consecutive-sequence/
- * @author David
+ * <br/>
+<br/>
+@author David
  */
 public class LongestConsecutiveSequence {
 

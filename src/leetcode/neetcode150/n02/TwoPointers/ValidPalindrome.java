@@ -31,7 +31,8 @@ Constraints:
 1 <= s.length <= 2 * 105
 s consists only of printable ASCII characters.
  * Problem: https://leetcode.com/problems/valid-palindrome/
- * @author David
+ * <br/>
+@author David
  */
 public class ValidPalindrome {
 

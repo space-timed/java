@@ -43,7 +43,8 @@ Follow up:
 If all integer numbers from the stream are in the range [0, 100], how would you optimize your solution?
 If 99% of all integer numbers from the stream are in the range [0, 100], how would you optimize your solution?
  
- * @author David
+ * <br/>
+@author David
  */
 public class FindMedianFromDataStream {
 

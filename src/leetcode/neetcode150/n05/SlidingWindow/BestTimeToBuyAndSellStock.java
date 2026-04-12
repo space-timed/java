@@ -29,7 +29,8 @@ Constraints:
 1 <= prices.length <= 10^5
 0 <= prices[i] <= 10^4
  
- * @author David
+ * <br/>
+@author David
  */
 public class BestTimeToBuyAndSellStock {
 

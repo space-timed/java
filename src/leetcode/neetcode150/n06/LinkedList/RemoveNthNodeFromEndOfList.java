@@ -29,7 +29,8 @@ The number of nodes in the list is sz.
 0 <= Node.val <= 100
 1 <= n <= sz
  
- * @author David
+ * <br/>
+@author David
  */
 public class RemoveNthNodeFromEndOfList {
 

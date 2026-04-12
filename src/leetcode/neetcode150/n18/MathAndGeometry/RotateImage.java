@@ -27,7 +27,8 @@ n == matrix.length == matrix[i].length
 1 <= n <= 20
 -1000 <= matrix[i][j] <= 1000
  
- * @author David
+ * <br/>
+@author David
  */
 public class RotateImage {
 

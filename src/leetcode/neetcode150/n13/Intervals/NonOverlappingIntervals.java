@@ -30,7 +30,7 @@ Constraints:
 intervals[i].length == 2
 -5 * 10^4 <= starti < endi <= 5 * 10^4
  
- * @author David
+  * @author  David
  */
 public class NonOverlappingIntervals {
 

@@ -28,7 +28,8 @@ The number of nodes in the subRoot tree is in the range [1, 1000].
 -10^4 <= root.val <= 10^4
 -10^4 <= subRoot.val <= 10^4
  
- * @author David
+ * <br/>
+@author David
  */
 public class SubtreeOfAnotherTree {
 

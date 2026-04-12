@@ -25,7 +25,9 @@ Constraints:
 1 <= nums.length <= 10^5
 -10^9 <= nums[i] <= 10^9
  * Problem: https://leetcode.com/problems/contains-duplicate/
- * @author David
+ * <br/>
+<br/>
+@author David
  */
 public class ContainsDuplicate {
 

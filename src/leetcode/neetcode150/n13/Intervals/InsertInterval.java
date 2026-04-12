@@ -31,7 +31,7 @@ intervals is sorted by starti in ascending order.
 newInterval.length == 2
 0 <= start <= end <= 10^5
  
- * @author David
+  * @author  David
  */
 public class InsertInterval {
 

@@ -28,7 +28,8 @@ Each value of inorder also appears in preorder.
 preorder is guaranteed to be the preorder traversal of the tree.
 inorder is guaranteed to be the inorder traversal of the tree.
  
- * @author David
+ * <br/>
+@author David
  */
 public class ConstructBinaryTreeFromPreorderAndInorderTraversal {
 

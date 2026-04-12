@@ -26,7 +26,9 @@ It is guaranteed that the answer is unique.
 
 Follow up: Your algorithm's time complexity must be better than O(n log n), where n is the array's size.
  * Problem: https://leetcode.com/problems/top-k-frequent-elements/
- * @author David
+ * <br/>
+<br/>
+@author David
  */
 public class TopKFrequentElements {
 

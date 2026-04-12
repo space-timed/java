@@ -21,7 +21,8 @@ Constraints:
 
 -1000 <= a, b <= 1000
  
- * @author David
+ * <br/>
+@author David
  */
 public class SumOfTwoIntegers {
 

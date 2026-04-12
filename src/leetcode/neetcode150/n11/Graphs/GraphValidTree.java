@@ -7,7 +7,8 @@ package leetcode.neetcode150.n11.Graphs;
  
  But the following graph is not a tree. 
  
- * @author David
+ * <br/>
+@author David
  */
 public class GraphValidTree {
 

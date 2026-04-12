@@ -31,7 +31,8 @@ Constraints:
 1 <= nums.length <= 100
 0 <= nums[i] <= 1000
  
- * @author David
+ * <br/>
+@author David
  */
 public class HouseRobberII {
 

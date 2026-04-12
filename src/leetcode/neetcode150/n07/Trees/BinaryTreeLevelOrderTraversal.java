@@ -27,7 +27,8 @@ Constraints:
 The number of nodes in the tree is in the range [0, 2000].
 -1000 <= Node.val <= 1000
  
- * @author David
+ * <br/>
+@author David
  */
 public class BinaryTreeLevelOrderTraversal {
 

@@ -31,7 +31,8 @@ Constraints:
 1 <= s.length <= 10^4
 s consists of parentheses only '()[]{}'.
  
- * @author David
+ * <br/>
+@author David
  */
 public class ValidParentheses {
 

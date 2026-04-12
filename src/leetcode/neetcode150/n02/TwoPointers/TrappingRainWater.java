@@ -25,7 +25,8 @@ n == height.length
 1 <= n <= 2 * 10^4
 0 <= height[i] <= 10^5
  * Problem: https://leetcode.com/problems/trapping-rain-water/
- * @author David
+ * <br/>
+@author David
  */
 public class TrappingRainWater {
 

@@ -40,7 +40,8 @@ n == nums.length
 All the integers of nums are unique.
 nums is sorted and rotated between 1 and n times.
  
- * @author David
+ * <br/>
+@author David
  */
 public class FindMinimumInRotatedSortedArray {
 

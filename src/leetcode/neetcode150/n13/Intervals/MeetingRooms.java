@@ -20,7 +20,7 @@ Output : 6 7 1
 
 
  
- * @author David
+  * @author  David
  */
 public class MeetingRooms {
 

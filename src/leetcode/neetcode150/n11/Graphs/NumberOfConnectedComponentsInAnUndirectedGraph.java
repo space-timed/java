@@ -18,7 +18,8 @@ Output:
 Explanation: There are 2 different connected components.
 They are {0, 1, 2} and {3, 4}.
  
- * @author David
+ * <br/>
+@author David
  */
 public class NumberOfConnectedComponentsInAnUndirectedGraph {
 

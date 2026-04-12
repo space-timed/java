@@ -27,7 +27,8 @@ Constraints:
 1 <= s.length <= 1000
 s consist of only digits and English letters.
 
- * @author David
+ * <br/>
+@author David
  */
 public class LongestPalindromicSubstring {
 

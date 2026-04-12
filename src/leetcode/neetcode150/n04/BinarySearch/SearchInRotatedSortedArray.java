@@ -35,7 +35,8 @@ All values of nums are unique.
 nums is an ascending array that is possibly rotated.
 -10^4 <= target <= 10^4
  
- * @author David
+ * <br/>
+@author David
  */
 public class SearchInRotatedSortedArray {
 

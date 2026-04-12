@@ -30,7 +30,8 @@ Constraints:
 The number of nodes in the tree is in the range [1, 10^4].
 -231 <= Node.val <= 231 - 1
  
- * @author David
+ * <br/>
+@author David
  */
 public class ValidateBinarySearchTree {
 

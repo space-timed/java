@@ -14,7 +14,7 @@ at time instance 1 all lectures are ongoing.
 Input: lectures[][] = {{0, 5}, {1, 2}, {6, 10}} 
 Output: 2 
  
- * @author David
+  * @author  David
  */
 public class MeetingRoomsII {
 

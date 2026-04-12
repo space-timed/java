@@ -25,7 +25,7 @@ Constraints:
 intervals[i].length == 2
 0 <= starti <= endi <= 10^4
  
- * @author David
+  * @author  David
  */
 public class MergeIntervals {
 

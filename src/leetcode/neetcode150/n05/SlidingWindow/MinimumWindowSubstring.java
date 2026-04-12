@@ -39,7 +39,8 @@ s and t consist of uppercase and lowercase English letters.
 
 Follow up: Could you find an algorithm that runs in O(m + n) time?
  
- * @author David
+ * <br/>
+@author David
  */
 public class MinimumWindowSubstring {
 

@@ -33,7 +33,8 @@ prerequisites[i].length == 2
 All the pairs prerequisites[i] are unique.
 
 
- * @author David
+ * <br/>
+@author David
  */
 public class CourseSchedule {
 

@@ -28,7 +28,8 @@ Constraints:
 1 <= s.length <= 1000
 s consists of lowercase English letters.
  
- * @author David
+ * <br/>
+@author David
  */
 public class PalindromicSubstrings {
 

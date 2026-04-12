@@ -34,7 +34,8 @@ Constraints:
 s and wordDict[i] consist of only lowercase English letters.
 All the strings of wordDict are unique.
  
- * @author David
+ * <br/>
+@author David
  */
 public class WordBreak {
 
