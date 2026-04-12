@@ -1,7 +1,6 @@
 package leetcode.neetcode150.n02.TwoPointers;
 
 /**
- * @author David
  
  You are given an integer array height of length n. There are n vertical lines drawn such that the two endpoints of the ith line are (i, 0) and (i, height[i]).
 
@@ -30,7 +29,8 @@ Constraints:
 n == height.length
 2 <= n <= 105
 0 <= height[i] <= 104
- 
+ * Problem: https://leetcode.com/problems/container-with-most-water/
+ * @author David
  */
 public class ContainerWithMostWater {
 

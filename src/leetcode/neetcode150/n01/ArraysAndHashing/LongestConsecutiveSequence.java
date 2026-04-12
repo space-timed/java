@@ -1,7 +1,6 @@
 package leetcode.neetcode150.n01.ArraysAndHashing;
 
 /**
- * @author David
  
  Given an unsorted array of integers nums, return the length of the longest consecutive elements sequence.
 
@@ -24,7 +23,8 @@ Constraints:
 
 0 <= nums.length <= 10^5
 -10^9 <= nums[i] <= 10^9
- 
+ * Problem: https://leetcode.com/problems/longest-consecutive-sequence/
+ * @author David
  */
 public class LongestConsecutiveSequence {
 

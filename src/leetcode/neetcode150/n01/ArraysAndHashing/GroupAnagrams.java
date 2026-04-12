@@ -1,7 +1,6 @@
 package leetcode.neetcode150.n01.ArraysAndHashing;
 
 /**
- * @author David
  
  Given an array of strings strs, group the anagrams together. You can return the answer in any order.
 
@@ -28,7 +27,8 @@ Constraints:
 1 <= strs.length <= 104
 0 <= strs[i].length <= 100
 strs[i] consists of lowercase English letters.
- 
+ * Problem: https://leetcode.com/problems/group-anagrams/
+ * @author David
  */
 public class GroupAnagrams {
 
