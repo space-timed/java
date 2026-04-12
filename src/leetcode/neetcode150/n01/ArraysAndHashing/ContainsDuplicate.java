@@ -1,7 +1,6 @@
 package leetcode.neetcode150.n01.ArraysAndHashing;
 
 /**
- * @author David
  
  Given an integer array nums, return true if any value appears at least twice in the array, and return false if every element is distinct.
 
@@ -25,7 +24,8 @@ Constraints:
 
 1 <= nums.length <= 10^5
 -10^9 <= nums[i] <= 10^9
- 
+ * Problem: https://leetcode.com/problems/contains-duplicate/
+ * @author David
  */
 public class ContainsDuplicate {
 
