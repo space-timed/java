@@ -62,6 +62,14 @@ A good mental model is:
 6\. Common Time Complexity Types
 --------------------------------
 
+- O(1) — Constant time complexity
+- O(log n) — Logarithmic time complexity
+- O(n) — Linear time complexity
+- O(n log n) — Linearithmic time complexity
+- O(n^2) — Quadratic time complexity
+- O(2^n) — Exponential time complexity
+- O(n!) — Factorial time complexity
+
 Below is a practical list of the main time complexity classes commonly discussed in computer science, from smaller growth to larger growth. Wikipedia's table of common time complexities includes these classes and related examples.
 
 ### 6.1 Constant Time --- `O(1)`

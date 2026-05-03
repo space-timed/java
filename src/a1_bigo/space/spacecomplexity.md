@@ -76,6 +76,14 @@ Space complexity is made up of two main parts:
 4\. Types of Space Complexity
 -----------------------------
 
+- O(1) — Constant space complexity
+- O(log n) — Logarithmic space complexity
+- O(n) — Linear space complexity
+- O(n log n) — Linearithmic space complexity
+- O(n^2) — Quadratic space complexity
+- O(2^n) — Exponential space complexity
+- O(n!) — Factorial space complexity
+
 ### 4.1 Constant Space --- O(1)
 
 Memory does not grow with input size.
