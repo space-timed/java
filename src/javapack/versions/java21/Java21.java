@@ -1,6 +1,6 @@
 package javapack.versions.java21;
 
-public class Java17 {
+public class Java21 {
     public static void main(String[] args) {
 
 
