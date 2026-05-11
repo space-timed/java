@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Guide to Big O Notation</title>
+    <style>
+        :root {
+            /* Colors mapped to complexity performance */
+            --o-excellent: #2ecc71; /* O(1), O(log n) */
+            --o-good: #f1c40f;      /* O(n) */
+            --o-fair: #f39c12;      /* O(n log n) */
+            --o-bad: #e67e22;       /* O(n^2) */
+            --o-terrible: #e74c3c;  /* O(2^n), O(n!) */
+            
+            --bg-color: #f8f9fa;
+            --surface-color: #ffffff;
+            --text-main: #2d3436;
+            --text-muted: #636e72;
+            --border-color: #dfe6e9;
+            --accent: #0984e3;
+            --accent-hover: #74b9ff;
+            
+            --font-main: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            --font-mono: 'Courier New', Courier, monospace;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-main);
+            color: var(--text-main);
+            background-color: var(--bg-color);
+            line-height: 1.6;
+        }
+
+        /* Layout */
+        header {
+            background-color: var(--surface-color);
+            padding: 3rem 2rem;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .container {
+            display: flex;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+            gap: 2rem;
+        }
+
+        /* Sidebar Navigation */
+        nav {
+            flex: 0 0 250px;
+            position: sticky;
+            top: 2rem;
+            height: max-content;
+            background: var(--surface-color);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+        }
+
+        nav ul {
+            list-style: none;
+        }
+
+        nav li {
+            margin-bottom: 0.5rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-weight: 500;
+            display: block;
+            padding: 0.5rem;
+            border-radius: 4px;
+            transition: all 0.2s;
+        }
+
+        nav a:hover, nav a.active {
+            background-color: var(--accent);
+            color: white;
+        }
+
+        /* Main Content */
+        main {
+            flex: 1;
+            min-width: 0; /* Prevents overflow in flex child */
+        }
+
+        section {
+            background: var(--surface-color);
+            padding: 2.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            border-bottom: 2px solid var(--accent-hover);
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent);
+        }
+
+        h3 {
+            font-size: 1.3rem;
+            margin: 1.5rem 0 0.5rem 0;
+            color: #2d3436;
+        }
+
+        p {
+            margin-bottom: 1rem;
+        }
+
+        ul, ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Callouts / Cards */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .card {
+            background: var(--bg-color);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--accent);
+        }
+
+        .card h4 {
+            margin-bottom: 0.5rem;
+            color: var(--accent);
+        }
+
+        /* Visual Graph */
+        .svg-container {
+            width: 100%;
+            max-width: 800px;
+            margin: 2rem auto;
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            position: relative;
+        }
+
+        .graph-legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 1rem;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            font-size: 0.9rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        .legend-color {
+            width: 15px;
+            height: 15px;
+            border-radius: 3px;
+            margin-right: 5px;
+        }
+
+        /* Code Blocks & Accordions */
+        pre {
+            background-color: #2d3436;
+            color: #f8f9fa;
+            padding: 1rem;
+            border-radius: 6px;
+            overflow-x: auto;
+            font-family: var(--font-mono);
+            font-size: 0.95rem;
+            margin: 1rem 0;
+        }
+
+        details {
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            margin-bottom: 1rem;
+        }
+
+        summary {
+            padding: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            background: #f1f2f6;
+            border-radius: 6px;
+            transition: background 0.2s;
+        }
+
+        summary:hover {
+            background: #dfe6e9;
+        }
+
+        .details-content {
+            padding: 1rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        /* Badges */
+        .badge {
+            display: inline-block;
+            padding: 0.2em 0.6em;
+            font-size: 0.85em;
+            font-weight: 700;
+            line-height: 1;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: baseline;
+            border-radius: 0.25rem;
+            color: white;
+            font-family: var(--font-mono);
+        }
+        .b-exc { background-color: var(--o-excellent); color: #000; }
+        .b-good { background-color: var(--o-good); color: #000;}
+        .b-fair { background-color: var(--o-fair); color: #fff;}
+        .b-bad { background-color: var(--o-bad); color: #fff;}
+        .b-ter { background-color: var(--o-terrible); color: #fff;}
+
+        /* Tables */
+        .table-container {
+            overflow-x: auto;
+            margin: 1rem 0 2rem 0;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            background-color: var(--accent);
+            color: white;
+            position: sticky;
+            top: 0;
+        }
+
+        tbody tr:hover {
+            background-color: rgba(9, 132, 227, 0.05);
+        }
+
+        .ambiguity-note {
+            background-color: #fff3cd;
+            color: #856404;
+            padding: 10px;
+            border-left: 4px solid #ffeeba;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Interactive Filter */
+        .search-box {
+            width: 100%;
+            padding: 0.8rem;
+            margin-bottom: 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .container {
+                flex-direction: column;
+            }
+            nav {
+                position: static;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Interactive Guide to Big O Notation</h1>
+        <p>Measure, analyze, and optimize algorithm efficiency.</p>
+    </header>
+
+    <div class="container">
+        <!-- Sidebar Navigation -->
+        <nav>
+            <ul>
+                <li><a href="#introduction" class="active">Introduction & Analysis</a></li>
+                <li><a href="#asymptotic">Asymptotic Functions</a></li>
+                <li><a href="#time-complexity">Time Complexity Notations</a></li>
+                <li><a href="#time-examples">Examples & Tips (Time)</a></li>
+                <li><a href="#time-tables">Time Complexity Tables</a></li>
+                <li><a href="#space-complexity">Space Complexity</a></li>
+                <li><a href="#space-tables">Space Complexity Tables</a></li>
+                <li><a href="#links">Links & Resources</a></li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <main>
+            <!-- 1. Introduction -->
+            <section id="introduction">
+                <h2>Introduction</h2>
+                <p><strong>Big O Notation</strong> is a way to measure an algorithm’s efficiency. It measures the time it takes to run your function as the input grows. Or in other words, how well does the function scale, meaning the growth of runtime relative to input size.</p>
+                <p>There are two parts to measuring efficiency:</p>
+                <ul>
+                    <li><strong>Time complexity:</strong> A measure of how long the function takes to run in terms of its computational steps.</li>
+                    <li><strong>Space complexity:</strong> Has to do with the amount of memory used by the function.</li>
+                </ul>
+
+                <h3>Algorithm Analysis</h3>
+                <p>Analysis of efficiency of an algorithm can be performed at two different stages, before implementation and after implementation, as:</p>
+                
+                <div class="card-grid">
+                    <div class="card">
+                        <h4>A priori analysis</h4>
+                        <p>This is defined as theoretical analysis of an algorithm. Efficiency of algorithm is measured by assuming that all other factors e.g. speed of processor, are constant and have no effect on implementation.</p>
+                    </div>
+                    <div class="card">
+                        <h4>A posterior analysis</h4>
+                        <p>This is defined as empirical analysis of an algorithm. The chosen algorithm is implemented using programming language. Next the chosen algorithm is executed on target computer machine. In this analysis, actual statistics like running time and space needed are collected.</p>
+                    </div>
+                </div>
+                <p>Algorithm analysis is dealt with the execution or running time of various operations involved. Running time of an operation can be defined as number of computer instructions executed per operation.</p>
+
+                <h3>Algorithm Complexity</h3>
+                <p>Suppose <code>X</code> is treated as an algorithm and <code>N</code> is treated as the size of input data, the time and space implemented by the Algorithm <code>X</code> are the two main factors which determine the efficiency of <code>X</code>.</p>
+                <ul>
+                    <li><strong>Time Factor:</strong> The time is calculated or measured by counting the number of key operations such as comparisons in sorting algorithm.</li>
+                    <li><strong>Space Factor:</strong> The space is calculated or measured by counting the maximum memory space required by the algorithm.</li>
+                </ul>
+                <p>The complexity of an algorithm <strong>f(N)</strong> provides the running time and / or storage space needed by the algorithm with respect of N as the size of input data.</p>
+            </section>
+
+            <!-- 2. Asymptotic Functions -->
+            <section id="asymptotic">
+                <h2>Asymptotic Functions</h2>
+                <p>The term 'asymptotic' describes an expression where a variable exists whose value tends to infinity. In short, asymptotic functions are used to describe the behavior of algorithms as the input size grows indefinitely.</p>
+                <p>The purpose of asymptotic functions is to allow us to make predictions about the behavior of algorithms without having to actually run them on large inputs.</p>
+                <p>Using asymptotic notations, we analyze the complexities of an algorithm and its performance. Using the asymptotic notations, we determine and show the complexities after analyzing it.</p>
+                
+                <h3>Types of Asymptotic Notations</h3>
+                <div class="card-grid">
+                    <div class="card" style="border-left-color: #e74c3c;">
+                        <h4>Big O Notation (O)</h4>
+                        <p>It represents the <strong>upper bound</strong> of the runtime of an algorithm. Big O Notation's role is to calculate the longest time an algorithm can take for its execution, i.e., it is used for calculating the <strong>worst-case time complexity</strong> of an algorithm.</p>
+                    </div>
+                    <div class="card" style="border-left-color: #2ecc71;">
+                        <h4>Omega Notation (Ω(n))</h4>
+                        <p>It represents the <strong>lower bound</strong> of the runtime of an algorithm. It is used for calculating the best time an algorithm can take to complete its execution, i.e., it is used for measuring the <strong>best case time complexity</strong> of an algorithm.</p>
+                    </div>
+                    <div class="card" style="border-left-color: #f1c40f;">
+                        <h4>Theta Notation (Θ(n))</h4>
+                        <p>It carries the <strong>middle characteristics</strong> of both Big O and Omega notations as it represents the lower and upper bound of an algorithm. It is used for measuring the <strong>average case time complexity</strong> of an algorithm.</p>
+                    </div>
+                </div>
+
+                <h3>Advantages of Big O Notation</h3>
+                <ul>
+                    <li>Big-O notation allows you to compare the efficiency of different algorithms.</li>
+                    <li>It helps you to choose the most efficient algorithm for a given problem.</li>
+                    <li>It allows you to identify the most time-consuming parts of your code.</li>
+                    <li>It helps you to focus your optimization efforts on the parts of your code that will have the biggest impact on performance.</li>
+                    <li>It can lead to more efficient and performant code.</li>
+                    <li>It can help you to make more informed decisions about which algorithms to use.</li>
+                    <li>It helps in debugging code and figuring out reasons for slow performance, crashes, identifying parts of the code that are inefficient and identifying pain points.</li>
+                </ul>
+            </section>
+
+            <!-- Visual Model Segment added as an educational enhancement -->
+            <section id="visual-model">
+                <h2>Visual Model: Big O Complexity Chart</h2>
+                <p>To understand the rates at which things can grow, hover over the legend items below to highlight the respective growth curves.</p>
+                
+                <div class="svg-container">
+                    <svg viewBox="0 0 800 500" width="100%" height="100%">
+                        <!-- Axes -->
+                        <line x1="50" y1="450" x2="780" y2="450" stroke="#000" stroke-width="2" />
+                        <line x1="50" y1="450" x2="50" y2="20" stroke="#000" stroke-width="2" />
+                        <text x="740" y="480" font-family="sans-serif" font-size="14">Elements (n)</text>
+                        <text x="10" y="30" font-family="sans-serif" font-size="14" transform="rotate(-90 20,40)">Operations</text>
+                        
+                        <!-- Grid Lines -->
+                        <line x1="50" y1="350" x2="780" y2="350" stroke="#eee" stroke-width="1" />
+                        <line x1="50" y1="250" x2="780" y2="250" stroke="#eee" stroke-width="1" />
+                        <line x1="50" y1="150" x2="780" y2="150" stroke="#eee" stroke-width="1" />
+                        <line x1="50" y1="50" x2="780" y2="50" stroke="#eee" stroke-width="1" />
+
+                        <!-- Curves -->
+                        <g id="curves" fill="none" stroke-width="4" stroke-linecap="round">
+                            <!-- O(1) -->
+                            <path id="curve-o1" d="M 50 420 L 780 420" stroke="#2ecc71" />
+                            <!-- O(log n) -->
+                            <path id="curve-ologn" d="M 50 450 Q 150 380 780 350" stroke="#2ecc71" stroke-dasharray="8,4" />
+                            <!-- O(n) -->
+                            <path id="curve-on" d="M 50 450 L 780 150" stroke="#f1c40f" />
+                            <!-- O(n log n) -->
+                            <path id="curve-onlogn" d="M 50 450 Q 400 350 780 50" stroke="#f39c12" />
+                            <!-- O(n^2) -->
+                            <path id="curve-on2" d="M 50 450 Q 400 450 600 50" stroke="#e67e22" />
+                            <!-- O(2^n) -->
+                            <path id="curve-o2n" d="M 50 450 Q 250 450 350 50" stroke="#e74c3c" />
+                            <!-- O(n!) -->
+                            <path id="curve-onfac" d="M 50 450 Q 150 450 200 50" stroke="#c0392b" />
+                        </g>
+                    </svg>
+                    
+                    <div class="graph-legend">
+                        <div class="legend-item" onmouseover="highlightCurve('curve-o1')" onmouseout="resetCurves()"><div class="legend-color b-exc"></div> O(1) Constant</div>
+                        <div class="legend-item" onmouseover="highlightCurve('curve-ologn')" onmouseout="resetCurves()"><div class="legend-color b-exc" style="background-image: repeating-linear-gradient(45deg, transparent, transparent 5px, rgba(0,0,0,0.2) 5px, rgba(0,0,0,0.2) 10px);"></div> O(log n) Logarithmic</div>
+                        <div class="legend-item" onmouseover="highlightCurve('curve-on')" onmouseout="resetCurves()"><div class="legend-color b-good"></div> O(n) Linear</div>
+                        <div class="legend-item" onmouseover="highlightCurve('curve-onlogn')" onmouseout="resetCurves()"><div class="legend-color b-fair"></div> O(n log n) Linearithmic</div>
+                        <div class="legend-item" onmouseover="highlightCurve('curve-on2')" onmouseout="resetCurves()"><div class="legend-color b-bad"></div> O(n^2) Quadratic</div>
+                        <div class="legend-item" onmouseover="highlightCurve('curve-o2n')" onmouseout="resetCurves()"><div class="legend-color b-ter"></div> O(2^n) Exponential</div>
+                        <div class="legend-item" onmouseover="highlightCurve('curve-onfac')" onmouseout="resetCurves()"><div class="legend-color" style="background:#c0392b"></div> O(n!) Factorial</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 3. Time Complexity Notations -->
+            <section id="time-complexity">
+                <h2>List of Time Complexity Notations</h2>
+                
+                <details open>
+                    <summary><span class="badge b-exc">O(1)</span> Constant Time Algorithms</summary>
+                    <div class="details-content">
+                        <p>How does this input size of an algorithm affect its running time? Key to understanding Big O is understanding the rates at which things can grow. The rate in question here is time taken per input size.</p>
+                        <p>Consider this simple piece of code:</p>
+<pre><code>int n = 1000;
+System.out.println("Hey - your input is: " + n);</code></pre>
+                        <p>Clearly, it doesn't matter what n is, above. This piece of code takes a constant amount of time to run. It's not dependent on the size of n. Similarly:</p>
+<pre><code>int n = 1000;
+System.out.println("Hey - your input is: " + n);
+System.out.println("Hmm.. I'm doing more stuff with: " + n);
+System.out.println("And more: " + n);</code></pre>
+                        <p>The above example is also constant time. Even if it takes 3 times as long to run, it doesn't depend on the size of the input, n. We denote constant time algorithms as follows: <code>O(1)</code>. Note that O(2), O(3) or even O(1000) would mean the same thing.</p>
+                        <p>We don't care about exactly how long it takes to run, only that it takes constant time.</p>
+                    </div>
+                </details>
+
+                <details>
+                    <summary><span class="badge b-exc">O(log n)</span> Logarithmic Time Algorithms</summary>
+                    <div class="details-content">
+                        <p>Constant time algorithms are (asymptotically) the quickest. Logarithmic time is the next quickest. Unfortunately, they're a bit trickier to imagine.</p>
+                        <p>One common example of a logarithmic time algorithm is the binary search algorithm. To see how to implement binary search in Java, click here.</p>
+                        <p>What is important here is that the running time grows in proportion to the logarithm of the input (in this case, log to the base 2):</p>
+<pre><code>for (int i = 1; i < n; i = i * 2){
+    System.out.println("Hey - I'm busy looking at: " + i);
+}</code></pre>
+                        <p>If n is 8, the output will be the following:</p>
+<pre><code>Hey - I'm busy looking at: 1
+Hey - I'm busy looking at: 2
+Hey - I'm busy looking at: 4</code></pre>
+                        <p>Our simple algorithm ran log(8) = 3 times.</p>
+                    </div>
+                </details>
+
+                <details>
+                    <summary><span class="badge b-good">O(n)</span> Linear Time Algorithms</summary>
+                    <div class="details-content">
+                        <p>After logarithmic time algorithms, we get the next fastest class: linear time algorithms.</p>
+                        <p>If we say something grows linearly, we mean that it grows directly proportional to the size of its inputs. Think of a simple for loop:</p>
+<pre><code>for (int i = 0; i < n; i++) {
+    System.out.println("Hey - I'm busy looking at: " + i);
+}</code></pre>
+                        <p>How many times does this for loop run? n times, of course! We don't know exactly how long it will take for this to run – and we don't worry about that. What we do know is that the simple algorithm presented above will grow linearly with the size of its input.</p>
+                        <p>We'd prefer a run time of 0.1n than (1000n + 1000), but both are still linear algorithms; they both grow directly in proportion to the size of their inputs. Again, if the algorithm was changed to the following:</p>
+<pre><code>for (int i = 0; i < n; i++) {
+    System.out.println("Hey - I'm busy looking at: " + i);
+    System.out.println("Hmm.. Let's have another look at: " + i);
+    System.out.println("And another: " + i);
+}</code></pre>
+                        <p>The runtime would still be linear in the size of its input, n. We denote linear algorithms as follows: <code>O(n)</code>. As with the constant time algorithms, we don't care about the specifics of the runtime. O(2n+1) is the same as O(n), as Big O Notation concerns itself with growth for input sizes.</p>
+                    </div>
+                </details>
+
+                <details>
+                    <summary><span class="badge b-fair">O(n log n)</span> N Log N Time Algorithms</summary>
+                    <div class="details-content">
+                        <p>n log n is the next class of algorithms. The running time grows in proportion to n log n of the input:</p>
+<pre><code>for (int i = 1; i <= n; i++){
+for(int j = 1; j < n; j = j * 2) {
+        System.out.println("Hey - I'm busy looking at: " + i + " and " + j);
+    }
+}</code></pre>
+                        <p>For example, if the n is 8, then this algorithm will run 8 * log(8) = 8 * 3 = 24 times. Whether we have strict inequality or not in the for loop is irrelevant for the sake of a Big O Notation.</p>
+                    </div>
+                </details>
+
+                <details>
+                    <summary><span class="badge b-bad">O(n^p)</span> Polynomial Time Algorithms</summary>
+                    <div class="details-content">
+                        <p>Next up we've got polynomial time algorithms. These algorithms are even slower than n log n algorithms.</p>
+                        <p>The term polynomial is a general term which contains quadratic (n^2), cubic (n^3), quartic (n^4), etc. functions. What's important to know is that O(n^2) is faster than O(n^3) which is faster than O(n^4), etc.</p>
+                        <p>Let's have a look at a simple example of a quadratic time algorithm:</p>
+<pre><code>for (int i = 1; i <= n; i++) {
+for(int j = 1; j <= n; j++) {
+        System.out.println("Hey - I'm busy looking at: " + i + " and " + j);
+    }
+}</code></pre>
+                        <p>This algorithm will run 8^2 = 64 times. Note, if we were to nest another for loop, this would become an O(n^3) algorithm.</p>
+                    </div>
+                </details>
+
+                <details>
+                    <summary><span class="badge b-ter">O(k^n)</span> Exponential Time Algorithms</summary>
+                    <div class="details-content">
+                        <p>Now we are getting into dangerous territory; these algorithms grow in proportion to some factor exponentiated by the input size.</p>
+                        <p>For example, <code>O(2^n)</code> algorithms double with every additional input. So, if n = 2, these algorithms will run four times; if n = 3, they will run eight times (kind of like the opposite of logarithmic time algorithms).</p>
+                        <p>O(3^n) algorithms triple with every additional input, O(k^n) algorithms will get k times bigger with every additional input. Let's have a look at a simple example of an O(2^n) time algorithm:</p>
+<pre><code>for (int i = 1; i <= Math.pow(2, n); i++){
+    System.out.println("Hey - I'm busy looking at: " + i);
+}</code></pre>
+                        <p>This algorithm will run 2^8 = 256 times.</p>
+                    </div>
+                </details>
+
+                <details>
+                    <summary><span class="badge b-ter">O(n!)</span> Factorial Time Algorithms</summary>
+                    <div class="details-content">
+                        <p>In most cases, this is pretty much as bad as it'll get. This class of algorithms has a run time proportional to the factorial of the input size.</p>
+                        <p>A classic example of this is solving the traveling salesman problem using a brute-force approach to solve it. An explanation of the solution to the traveling salesman problem is beyond the scope of this article.</p>
+                        <p>Instead, let's look at a simple O(n!) algorithm, as in the previous sections:</p>
+<pre><code>for (int i = 1; i <= factorial(n); i++){
+    System.out.println("Hey - I'm busy looking at: " + i);
+}Copy</code></pre>
+                        <p>where <code>factorial(n)</code> simply calculates n!. If n is 8, this algorithm will run 8! = 40320 times.</p>
+                    </div>
+                </details>
+
+                <h3>Time complexities from most efficient to least efficient</h3>
+                <ol>
+                    <li>O(1) – Constant time</li>
+                    <li>O(log n) – Logarithmic time</li>
+                    <li>O(n) – Linear time</li>
+                    <li>O(n log n) – Linearithmic time</li>
+                    <li>O(n^2) – Quadratic time</li>
+                    <li>O(n^3) – Cubic time</li>
+                    <li>O(2^n) – Exponential time</li>
+                    <li>O(n!) – Factorial time</li>
+                </ol>
+            </section>
+
+            <!-- 4. Examples & Tips -->
+            <section id="time-examples">
+                <h2>Examples & Tips for Calculating Time Complexity</h2>
+                
+                <h3>Examples of Time Complexity</h3>
+                <p>As we know that the runtime performance of an algorithm depends on the input size of n. Let's see some mathematical examples for making the runtime analysis of an algorithm for different size of n:</p>
+                
+                <div class="card-grid">
+                    <div class="card">
+                        <h4>If input size is 20, (n = 20)</h4>
+                        <ul>
+                            <li>log (20) = 2.996;</li>
+                            <li>20 = 20;</li>
+                            <li>20 log (20) = 59.9;</li>
+                            <li>20^2 = 400;</li>
+                            <li>2^20 = 1084576;</li>
+                            <li>20! = 2.432902 + 18^18;</li> <!-- Preserving exact original text string -->
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h4>If input size is 10, (n = 10)</h4>
+                        <ul>
+                            <li>log (10) = 1;</li>
+                            <li>10 = 10;</li>
+                            <li>10 log (10) = 10;</li>
+                            <li>10^2 = 100;</li>
+                            <li>2^10 = 1024;</li>
+                            <li>10! = 3628800;</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3>Tips for calculating Time Complexity</h3>
+                <ul>
+                    <li><strong>Identify the most dominant operation</strong> in the function. This is typically the operation that is performed most frequently, and has the greatest impact on the overall time complexity of the function.</li>
+                    <li><strong>Determine how the number of times</strong> that this operation is performed depends on the size of the input. For example, if the operation is performed once for each element in the input, the time complexity would be O(n), where n is the size of the input.</li>
+                    <li><strong>Drop constants and non-dominant terms.</strong> Constants refer to values that do not change based on the size of the input, and can be ignored when determining the time complexity. Non-dominant terms refer to operations that are performed less frequently than the dominant operation, and can also be ignored.
+                        <ul>
+                            <li>In O(2n + 3), the "3" term is a constant.</li>
+                            <li>In O(n^2 + log n), the log n term is a non-dominant term.</li>
+                            <li>In O(n^3 + sqrt(n)), the sqrt(n) term is a non-dominant term.</li>
+                        </ul>
+                    </li>
+                </ul>
+            </section>
+
+            <!-- 5. Time Complexity Tables -->
+            <section id="time-tables">
+                <h2>Time Complexities Reference Tables</h2>
+                
+                <h3>Time Complexities of Data Structures</h3>
+                <input type="text" id="dsSearch" class="search-box" placeholder="Filter data structures..." onkeyup="filterTable('dsSearch', 'dsTable')">
+                <div class="table-container">
+                    <table id="dsTable">
+                        <thead>
+                            <tr>
+                                <th>Data Structure</th>
+                                <th>Access (Best / Avg / Worst)</th>
+                                <th>Search (Best / Avg / Worst)</th>
+                                <th>Insertion (Best / Avg / Worst)</th>
+                                <th>Deletion (Best / Avg / Worst)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Values strictly derived from user's input -->
+                            <tr>
+                                <td><strong>Arrays</strong></td>
+                                <td>O(1) / O(1) / O(1)</td>
+                                <td>O(1) / O(n) / O(n)</td>
+                                <td>O(1) / O(n) / O(n)</td>
+                                <td>O(1) / O(n) / O(n)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Singly Linked List</strong></td>
+                                <td>O(1) / O(n) / O(n)</td>
+                                <td>O(1) / O(n) / O(n)</td>
+                                <td>O(1) / O(1) / O(1)</td>
+                                <td>O(1) / O(1) / O(1)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Circular Singly Linked List</strong></td>
+                                <td>O(1) / O(n) / O(n)</td>
+                                <td>O(1) / O(n) / O(n)</td>
+                                <td>O(1) / O(1) / O(1)</td>
+                                <td>O(1) / O(1) / O(1)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Doubly linked list</strong></td>
+                                <td>O(1) / O(n) / O(n)</td>
+                                <td>O(1) / O(n) / O(n)</td>
+                                <td>O(1) / O(1) / O(1)</td>
+                                <td>O(1) / O(1) / O(1)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Doubly Circular Linked List</strong></td>
+                                <td>O(1) / O(n) / O(n)</td>
+                                <td>O(1) / O(n) / O(n)</td>
+                                <td>O(1) / O(1) / O(1)</td>
+                                <td>O(1) / O(1) / O(1)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Stack</strong></td>
+                                <td>O(1) / O(n) / O(n)</td>
+                                <td>O(1) / O(n) / O(n)</td>
+                                <td>O(1) / O(1) / O(1)</td>
+                                <td>O(1) / O(1) / O(1)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Queue</strong></td>
+                                <td>O(1) / O(n) / O(n)</td>
+                                <td>O(1) / O(n) / O(n)</td>
+                                <td>O(1) / O(1) / O(1)</td>
+                                <td>O(1) / O(1) / O(1)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Hashtable</strong></td>
+                                <td>O(1) / O(1) / O(n)</td>
+                                <td>O(1) / O(1) / O(n)</td>
+                                <td>O(1) / O(1) / O(n)</td>
+                                <td>O(1) / O(1) / O(n)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Tree</strong></td>
+                                <td>O(log n) / O(log n) / O(n)</td>
+                                <td>O(log n) / O(log n) / O(n)</td>
+                                <td>O(log n) / O(log n) / O(n)</td>
+                                <td>O(log n) / O(log n) / O(n)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Binary Tree</strong></td>
+                                <td>O(log n) / O(log n) / O(n)</td>
+                                <td>O(log n) / O(log n) / O(n)</td>
+                                <td>O(log n) / O(log n) / O(n)</td>
+                                <td>O(log n) / O(log n) / O(n)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Binary Search Tree</strong></td>
+                                <td>O(log n) / O(log n) / O(n)</td>
+                                <td>O(log n) / O(log n) / O(n)</td>
+                                <td>O(log n) / O(log n) / O(n)</td>
+                                <td>O(log n) / O(log n) / O(n)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>AVL Tree (well balanced)</strong></td>
+                                <td>O(log n) / O(log n) / O(log n)</td>
+                                <td>O(log n) / O(log n) / O(log n)</td>
+                                <td>O(log n) / O(log n) / O(log n)</td>
+                                <td>O(log n) / O(log n) / O(log n)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Binary Heap</strong></td>
+                                <td>O(1) / O(1) / O(1)</td>
+                                <td>O(n) / O(n) / O(n)</td>
+                                <td>O(1) / O(log n) / O(log n)</td>
+                                <td>O(log n) / O(log n) / O(log n)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Trie</strong></td>
+                                <td>O(m) / O(m) / O(m)</td>
+                                <td>O(m) / O(m) / O(m)</td>
+                                <td>O(m) / O(m) / O(m)</td>
+                                <td>O(m) / O(m) / O(m)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>Time Complexities of Algorithms Implemented Using Arrays</h3>
+                <input type="text" id="algSearch" class="search-box" placeholder="Filter algorithms..." onkeyup="filterTable('algSearch', 'algTable')">
+                <div class="table-container">
+                    <table id="algTable">
+                        <thead>
+                            <tr>
+                                <th>Algorithms</th>
+                                <th>Best Case</th>
+                                <th>Average Case</th>
+                                <th>Worst Case</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Bubble sort</td><td>O(n)</td><td>O(n^2)</td><td>O(n^2)</td></tr>
+                            <tr><td>Selection sort</td><td>O(n^2)</td><td>O(n^2)</td><td>O(n^2)</td></tr>
+                            <tr><td>Insertion sort</td><td>O(n)</td><td>O(n^2)</td><td>O(n^2)</td></tr>
+                            <tr><td>Bucket sort</td><td>O(n + k)</td><td>O(n + k)</td><td>O(n^2)</td></tr>
+                            <tr><td>Merge sort</td><td>O(n * log(n))</td><td>O(n * log(n))</td><td>O(n * log(n))</td></tr>
+                            <tr><td>Quick sort</td><td>O(n * log(n))</td><td>O(n * log(n))</td><td>O(n^2)</td></tr>
+                            <tr><td>Heap sort</td><td>O(n * log(n))</td><td>O(n * log(n))</td><td>O(n * log(n))</td></tr>
+                            <tr><td>Linear search</td><td>O(1)</td><td>O(n)</td><td>O(n)</td></tr>
+                            <tr><td>Binary search</td><td>O(1)</td><td>O(log(n))</td><td>O(log(n))</td></tr>
+                            <tr><td>Breadth first search</td><td>O(V + E)</td><td>O(V + E)</td><td>O(V + E)</td></tr>
+                            <tr><td>Depth first search</td><td>O(V + E)</td><td>O(V + E)</td><td>O(V + E)</td></tr>
+                            <tr><td>Topological sort</td><td>O(V + E)</td><td>O(V + E)</td><td>O(V + E)</td></tr>
+                            <tr><td>Djikstra’s algorithm</td><td>O(E * log(V))</td><td>O(E * log(V))</td><td>O(E * log(V))</td></tr>
+                            <tr><td>Bellman-ford algorithm</td><td>O(V * E)</td><td>O(V * E)</td><td>O(V * E)</td></tr>
+                            <tr><td>Floyd warshall algorithm</td><td>O(V^3)</td><td>O(V^3)</td><td>O(V^3)</td></tr>
+                            <tr><td>Minimum spanning tree</td><td>O(E * log(E))</td><td>O(E * log(E))</td><td>O(E * log(E))</td></tr>
+                            <tr><td>Kruksal algorithm</td><td>O(E * log(E))</td><td>O(E * log(E))</td><td>O(E * log(E))</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- 6. Space Complexity -->
+            <section id="space-complexity">
+                <h2>Space Complexity</h2>
+                <p>Space complexity is the amount of memory required by an algorithm to run to completion.</p>
+                <p>The purpose of analyzing the space complexity of an algorithm is to determine how much memory it will need in order to run, and to understand how the algorithm's memory usage will scale as the size of the input increases.</p>
+                
+                <div class="card" style="margin-bottom: 1.5rem;">
+                    <h4>Why it matters: Trade-offs</h4>
+                    <p>One of the main benefits of analyzing space complexity is that it can help identify algorithms that may not be suitable for use in certain situations because they require too much memory. For example, if an algorithm has a high space complexity, it may not be practical to use it on very large inputs because it would require an impractical amount of memory to run.</p>
+                    <p>Another benefit is understanding the trade-offs between space and time complexity. In many cases, an algorithm that has a low time complexity (i.e. it runs quickly) may have a high space complexity, and vice versa. Understanding these trade-offs can help us to choose the right algorithm for a given situation.</p>
+                </div>
+
+                <h3>List of Space Complexity Notations</h3>
+                <ul>
+                    <li><strong>O(1) - Constant space complexity:</strong> the amount of memory required by the algorithm is independent of the size of the input.</li>
+                    <li><strong>O(n) - Linear space complexity:</strong> the amount of memory required by the algorithm is directly proportional to the size of the input.</li>
+                    <li><strong>O(n^2) - Quadratic space complexity:</strong> the amount of memory required by the algorithm is proportional to the square of the size of the input.</li>
+                    <li><strong>O(log n) - Logarithmic space complexity:</strong> the amount of memory required by the algorithm increases logarithmically with the size of the input.</li>
+                    <li><strong>O(n log n) - Linear logarithmic space complexity:</strong> the amount of memory required by the algorithm is proportional to the size of the input and the logarithm of the size of the input.</li>
+                    <li><strong>O(2^n) - Exponential space complexity:</strong> the amount of memory required by the algorithm increases exponentially with the size of the input.</li>
+                    <li><strong>O(n!) - Factorial space complexity:</strong> the amount of memory required by the algorithm is proportional to the factorial of the size of the input.</li>
+                </ul>
+
+                <h3>Space complexities from least efficient to most efficient</h3>
+                <ol>
+                    <li>O(1) – Constant space</li>
+                    <li>O(log n) – Logarithmic space</li>
+                    <li>O(n) – Linear space</li>
+                    <li>O(n log n) – Linearithmic space</li>
+                    <li>O(n^2) – Quadratic space</li>
+                    <li>O(n^3) – Cubic space</li>
+                    <li>O(2^n) – Exponential space</li>
+                    <li>O(n!) – Factorial space</li>
+                </ol>
+
+                <h3>Tips for calculating Space complexity</h3>
+                <ul>
+                    <li>Focus on the variables created and used by the algorithm or data structure, and how much memory they take up.</li>
+                    <li>Consider how the amount of memory used by the algorithm or data structure scales with the input size.</li>
+                    <li>Remember that you can drop constants and constraints when calculating space complexity, just like with time complexity.</li>
+                    <li>Pay attention to the data structures used by the algorithm, as these can have a significant impact on its space complexity.</li>
+                    <li>Consider the worst-case scenario when calculating space complexity, as this will give you the upper bound on the amount of memory used by the algorithm.</li>
+                    <li>Be careful not to count memory that is shared by multiple parts of the algorithm, as this will be counted multiple times and can lead to an overestimate of the space complexity.</li>
+                </ul>
+                <p>When calculating space complexity, it's important to consider the worst-case scenario because this gives you the upper bound on the amount of memory that will be used by the algorithm or data structure. In other words, the space complexity in the worst-case scenario is the maximum amount of memory that the algorithm or data structure could possibly use, regardless of the input it receives.</p>
+            </section>
+
+            <!-- 7. Space Complexity Tables -->
+            <section id="space-tables">
+                <h2>Space Complexities Reference Tables</h2>
+
+                <div class="ambiguity-note">
+                    <strong>Note on Table Structure:</strong> Space complexity typically describes the overall memory footprint of a data structure. The tables below strictly preserve the operation-specific breakdowns provided in the original source content.
+                </div>
+
+                <h3>Space Complexities of Data Structures</h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Data Structure</th>
+                                <th>Access</th>
+                                <th>Search</th>
+                                <th>Insertion</th>
+                                <th>Deletion</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Arrays</td><td>O(1)</td><td>O(n)</td><td>O(n)</td><td>O(n)</td></tr>
+                            <tr><td>Singly Linked List</td><td>O(n)</td><td>O(n)</td><td>O(1)</td><td>O(1)</td></tr>
+                            <tr><td>Circular Singly Linked List</td><td>O(n)</td><td>O(n)</td><td>O(1)</td><td>O(1)</td></tr>
+                            <tr><td>Doubly linked list</td><td>O(n)</td><td>O(n)</td><td>O(1)</td><td>O(1)</td></tr>
+                            <tr><td>Doubly Circular Linked List</td><td>O(n)</td><td>O(n)</td><td>O(1)</td><td>O(1)</td></tr>
+                            <tr><td>Stack</td><td>O(n)</td><td>O(n)</td><td>O(1)</td><td>O(1)</td></tr>
+                            <tr><td>Queue</td><td>O(n)</td><td>O(n)</td><td>O(1)</td><td>O(1)</td></tr>
+                            <tr><td>Hashtable</td><td>O(1)</td><td>O(1)</td><td>O(1)</td><td>O(1)</td></tr>
+                            <tr><td>Tree</td><td>O(n)</td><td>O(n)</td><td>O(n)</td><td>O(n)</td></tr>
+                            <tr><td>Binary Tree</td><td>O(n)</td><td>O(n)</td><td>O(n)</td><td>O(n)</td></tr>
+                            <tr><td>Binary Search Tree</td><td>O(n)</td><td>O(n)</td><td>O(n)</td><td>O(n)</td></tr>
+                            <tr><td>AVL Tree</td><td>O(log(n))</td><td>O(log(n))</td><td>O(log(n))</td><td>O(log(n))</td></tr>
+                            <tr><td>Binary Heap</td><td>O(n)</td><td>O(n)</td><td>O(log(n))</td><td>O(log(n))</td></tr>
+                            <tr><td>Trie</td><td>O(m)</td><td>O(m)</td><td>O(m)</td><td>O(m)</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>Space Complexities of Algorithms Implemented Using Arrays</h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Algorithms</th>
+                                <th>Worst Case Space Complexity</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Bubble sort</td><td>O(n^2)</td></tr>
+                            <tr><td>Selection sort</td><td>O(n^2)</td></tr>
+                            <tr><td>Insertion sort</td><td>O(n^2)</td></tr>
+                            <tr><td>Bucket sort</td><td>O(n)</td></tr>
+                            <tr><td>Merge sort</td><td>O(n log n)</td></tr>
+                            <tr><td>Quick sort</td><td>O(n^2)</td></tr>
+                            <tr><td>Heap sort</td><td>O(n log n)</td></tr>
+                            <tr><td>Linear search</td><td>O(n)</td></tr>
+                            <tr><td>Binary search</td><td>O(log n)</td></tr>
+                            <tr><td>Breadth first search</td><td>O(n)</td></tr>
+                            <tr><td>Depth first search</td><td>O(n)</td></tr>
+                            <tr><td>Topological sort</td><td>O(n + m)</td></tr>
+                            <tr><td>Djikstra’s algorithm</td><td>O(n^2)</td></tr>
+                            <tr><td>Bellman-ford algorithm</td><td>O(n^2)</td></tr>
+                            <tr><td>Floyd warshall algorithm</td><td>O(n^3)</td></tr>
+                            <tr><td>Minimum spannin tree</td><td>O(n^2)</td></tr> <!-- Typo preserved from input -->
+                            <tr><td>Kruksal algorithm</td><td>O(n log n)</td></tr> <!-- Typo preserved from input -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- 8. Links and Resources -->
+            <section id="links">
+                <h2>Further Reading & Resources</h2>
+                <ul>
+                    <li><strong>Interview questions:</strong> More Links</li>
+                    <li>Plain english explanation - stack overflow</li>
+                    <li>Time Complexity</li>
+                    <li>Space Complexity</li>
+                    <li><a href="https://www.tutorialspoint.com/time-and-space-complexity-in-data-structure" target="_blank">https://www.tutorialspoint.com/time-and-space-complexity-in-data-structure</a></li>
+                </ul>
+            </section>
+        </main>
+    </div>
+
+    <!-- Interactivity Scripts -->
+    <script>
+        // 1. Table Filtering Logic
+        function filterTable(inputId, tableId) {
+            let input = document.getElementById(inputId);
+            let filter = input.value.toLowerCase();
+            let table = document.getElementById(tableId);
+            let tr = table.getElementsByTagName("tr");
+
+            for (let i = 1; i < tr.length; i++) { // Skip header row
+                let td = tr[i].getElementsByTagName("td")[0]; // Filter by first column (name)
+                if (td) {
+                    let txtValue = td.textContent || td.innerText;
+                    if (txtValue.toLowerCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }       
+            }
+        }
+
+        // 2. SVG Curve Highlight Logic
+        function highlightCurve(curveId) {
+            // Dim all curves
+            const paths = document.querySelectorAll('#curves path');
+            paths.forEach(p => {
+                p.style.opacity = '0.1';
+                p.style.strokeWidth = '2';
+            });
+            // Highlight target
+            const target = document.getElementById(curveId);
+            if(target) {
+                target.style.opacity = '1';
+                target.style.strokeWidth = '6';
+            }
+        }
+
+        function resetCurves() {
+            // Restore default styles
+            const paths = document.querySelectorAll('#curves path');
+            paths.forEach(p => {
+                p.style.opacity = '1';
+                p.style.strokeWidth = '4';
+            });
+        }
+
+        // 3. ScrollSpy Navigation
+        document.addEventListener('DOMContentLoaded', function() {
+            const sections = document.querySelectorAll("section");
+            const navLinks = document.querySelectorAll("nav a");
+
+            window.addEventListener("scroll", () => {
+                let current = "";
+                sections.forEach((section) => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    if (pageYOffset >= (sectionTop - 150)) {
+                        current = section.getAttribute("id");
+                    }
+                });
+
+                navLinks.forEach((link) => {
+                    link.classList.remove("active");
+                    if (link.getAttribute("href") === `#${current}`) {
+                        link.classList.add("active");
+                    }
+                });
+            });
+            
+            // Smooth scroll for nav links
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetSection = document.querySelector(targetId);
+                    window.scrollTo({
+                        top: targetSection.offsetTop - 20,
+                        behavior: 'smooth'
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

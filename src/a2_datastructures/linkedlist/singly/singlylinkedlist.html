@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mastering Singly Linked Lists | Interactive Guide</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1e40af;
+            --secondary: #64748b;
+            --success: #22c55e;
+            --danger: #ef4444;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --code-bg: #1e1e1e;
+        }
+
+        * { box-sizing: border-box; font-family: 'Inter', system-ui, -apple-system, sans-serif; }
+        body { background-color: var(--bg); color: var(--text-main); line-height: 1.6; margin: 0; padding: 0; }
+
+        /* Layout */
+        .container { max-width: 1100px; margin: 0 auto; padding: 2rem; }
+        header { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: white; padding: 4rem 2rem; text-align: center; border-radius: 0 0 2rem 2rem; margin-bottom: 3rem; }
+        header h1 { margin: 0; font-size: 2.5rem; }
+        header p { opacity: 0.9; font-size: 1.1rem; margin-top: 1rem; }
+
+        section { margin-bottom: 4rem; }
+        h2 { font-size: 1.8rem; border-left: 5px solid var(--primary); padding-left: 1rem; margin-bottom: 1.5rem; color: var(--primary-dark); }
+
+        /* Cards & Grid */
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+        .card { background: var(--card-bg); padding: 1.5rem; border-radius: 12px; border: 1px solid var(--border); box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); transition: transform 0.2s; }
+        .card:hover { transform: translateY(-4px); }
+
+        /* Visualizer Area */
+        #visualizer-container {
+            background: #f1f5f9;
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 2rem 0;
+            overflow-x: auto;
+            border: 2px dashed #cbd5e1;
+            min-height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 0;
+        }
+        .node-viz {
+            display: flex;
+            align-items: center;
+            animation: fadeIn 0.5s ease-out;
+        }
+        .node-box {
+            border: 2px solid var(--primary);
+            border-radius: 8px;
+            background: white;
+            display: flex;
+            overflow: hidden;
+        }
+        .node-val { padding: 1rem; font-weight: bold; border-right: 2px solid var(--primary); min-width: 60px; text-align: center; }
+        .node-next { padding: 1rem; background: #eff6ff; font-family: monospace; color: var(--primary); }
+        .arrow { font-size: 2rem; margin: 0 10px; color: var(--secondary); }
+        .null-indicator { color: var(--danger); font-weight: bold; margin-left: 10px; }
+
+        /* Interactive Tabs */
+        .tabs { display: flex; border-bottom: 2px solid var(--border); margin-bottom: 1rem; gap: 1rem; }
+        .tab-btn { padding: 0.75rem 1.5rem; border: none; background: none; cursor: pointer; font-weight: 600; color: var(--text-muted); border-bottom: 3px solid transparent; }
+        .tab-btn.active { color: var(--primary); border-bottom-color: var(--primary); }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+
+        /* Code Blocks */
+        pre { background: var(--code-bg); color: #d4d4d4; padding: 1.5rem; border-radius: 8px; overflow-x: auto; font-size: 0.9rem; position: relative; }
+        code { font-family: 'Fira Code', 'Courier New', monospace; }
+        .code-tag { position: absolute; top: 0; right: 0; background: #333; padding: 0.2rem 0.8rem; font-size: 0.7rem; color: #888; border-radius: 0 8px 0 8px; }
+
+        /* Table Design */
+        .table-wrapper { overflow-x: auto; margin: 1.5rem 0; }
+        table { width: 100%; border-collapse: collapse; background: white; border-radius: 8px; overflow: hidden; }
+        th, td { padding: 1rem; text-align: left; border-bottom: 1px solid var(--border); }
+        th { background: #f8fafc; color: var(--text-muted); font-weight: 600; }
+        tr:hover { background-color: #f1f5f9; }
+
+        /* UI Elements */
+        .badge { display: inline-block; padding: 0.25rem 0.75rem; border-radius: 9999px; font-size: 0.8rem; font-weight: 600; margin-right: 0.5rem; }
+        .badge-blue { background: #dbeafe; color: #1e40af; }
+        .badge-green { background: #dcfce7; color: #166534; }
+        .badge-red { background: #fee2e2; color: #991b1b; }
+
+        .btn-group { margin: 1rem 0; display: flex; gap: 0.5rem; flex-wrap: wrap; }
+        button.action-btn { padding: 0.6rem 1.2rem; border-radius: 6px; border: none; background: var(--primary); color: white; cursor: pointer; transition: 0.2s; }
+        button.action-btn:hover { background: var(--primary-dark); }
+        input[type="number"] { padding: 0.6rem; border-radius: 6px; border: 1px solid var(--border); width: 80px; }
+
+        /* Progressive Disclosure */
+        .accordion { border: 1px solid var(--border); border-radius: 8px; margin-bottom: 0.5rem; }
+        .accordion-header { padding: 1rem; background: white; cursor: pointer; font-weight: 600; display: flex; justify-content: space-between; }
+        .accordion-content { padding: 0 1rem; max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; background: #fafafa; }
+        .accordion.open .accordion-content { max-height: 1000px; padding: 1rem; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+
+        .note-box { border-left: 4px solid #eab308; background: #fefce8; padding: 1rem; border-radius: 4px; margin: 1rem 0; }
+
+        @media (max-width: 768px) {
+            .container { padding: 1rem; }
+            header { padding: 2rem 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>The Singly Linked List</h1>
+    <p>A fundamental linear data structure made of linked nodes.</p>
+</header>
+
+<div class="container">
+
+    <!-- 1. Definition Section -->
+    <section>
+        <h2>Concept Definition</h2>
+        <div class="grid">
+            <div class="card">
+                <p>A <strong>Singly Linked List</strong> is a common data structure made of a chain of nodes. Each node contains a <strong>value</strong> and a <strong>pointer (reference)</strong> to the next node in the chain.</p>
+                <ul>
+                    <li><strong>Head:</strong> Points to the first node.</li>
+                    <li><strong>Tail:</strong> The last node points to <code>null</code>.</li>
+                    <li><strong>Empty List:</strong> Head pointer points to <code>null</code>.</li>
+                    <li><strong>Traversal:</strong> Elements are accessed linearly from head to tail.</li>
+                </ul>
+            </div>
+            <div class="card" style="background: #eff6ff;">
+                <h3>Core Operations</h3>
+                <div class="btn-group">
+                    <span class="badge badge-blue">Traversal</span>
+                    <span class="badge badge-blue">Insertion</span>
+                    <span class="badge badge-blue">Deletion</span>
+                    <span class="badge badge-blue">Search</span>
+                </div>
+                <p><small>Explore these operations in the visualizer below.</small></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. Visual Model Section -->
+    <section id="visualizer">
+        <h2>Interactive Visual Model</h2>
+        <p>Experiment with the Singly Linked List in real-time. Add or remove nodes to see the chain update.</p>
+
+        <div class="btn-group">
+            <input type="number" id="node-input" placeholder="Value" value="10">
+            <button class="action-btn" onclick="visualAdd()">Add Node</button>
+            <button class="action-btn" onclick="visualRemove()" style="background: var(--danger);">Remove Value</button>
+            <button class="action-btn" onclick="visualReset()" style="background: var(--secondary);">Reset</button>
+        </div>
+
+        <div id="visualizer-container">
+            <!-- Nodes will be injected here via JS -->
+        </div>
+        <p id="viz-status" style="font-style: italic; color: var(--text-muted);"></p>
+    </section>
+
+    <!-- 3. Implementation Section -->
+    <section>
+        <h2>Java Implementation</h2>
+        <div class="tabs">
+            <button class="tab-btn active" onclick="openTab(event, 'node-class')">Node Class</button>
+            <button class="tab-btn" onclick="openTab(event, 'list-class')">List Class</button>
+            <button class="tab-btn" onclick="openTab(event, 'main-method')">Execution (Main)</button>
+        </div>
+
+        <div id="node-class" class="tab-content active">
+            <pre><span class="code-tag">Java</span><code>// Node class for a singly linked list
+class Node {
+  int value;
+  Node next;
+
+  public Node(int value) {
+    this.value = value;
+    this.next = null;
+  }
+}</code></pre>
+        </div>
+
+        <div id="list-class" class="tab-content">
+            <pre><span class="code-tag">Java</span><code>class SinglyLinkedList {
+  Node head;
+
+  public SinglyLinkedList() {
+    this.head = null;
+  }
+
+  // Method to add a node to the list
+  public void add(int value) {
+    Node newNode = new Node(value);
+
+    if (this.head == null) {
+      this.head = newNode;
+    } else {
+      Node current = this.head;
+      while (current.next != null) {
+        current = current.next;
+      }
+      current.next = newNode;
+    }
+  }
+
+  // Method to remove a node from the list
+  public void remove(int value) {
+    if (this.head == null) return;
+
+    if (this.head.value == value) {
+      this.head = this.head.next;
+      return;
+    }
+
+    Node current = this.head;
+    while (current.next != null) {
+      if (current.next.value == value) {
+        current.next = current.next.next;
+        return;
+      }
+      current = current.next;
+    }
+  }
+
+  // Method to search for a value
+  public boolean search(int value) {
+    Node current = this.head;
+    while (current != null) {
+      if (current.value == value) return true;
+      current = current.next;
+    }
+    return false;
+  }
+}</code></pre>
+        </div>
+
+        <div id="main-method" class="tab-content">
+            <pre><span class="code-tag">Java</span><code>public class Main {
+  public static void main(String[] args) {
+    SinglyLinkedList list = new SinglyLinkedList();
+
+    list.add(5);
+    list.add(10);
+    list.add(15);
+
+    list.remove(10);
+
+    if (list.search(15)) {
+      System.out.println("15 was found in the list");
+    }
+
+    // Access by index example
+    int value = list.get(1); // Returns value of 2nd node
+
+    // Traverse and Print
+    Node current = list.head;
+    while (current != null) {
+      System.out.println(current.value);
+      current = current.next;
+    }
+  }
+}</code></pre>
+        </div>
+    </section>
+
+    <!-- 4. Complexity & Features -->
+    <section>
+        <h2>Performance & Features</h2>
+
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                <tr>
+                    <th>Complexity Type</th>
+                    <th>Access</th>
+                    <th>Search</th>
+                    <th>Insertion</th>
+                    <th>Deletion</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td><strong>Time (Best)</strong></td>
+                    <td>O(1)</td>
+                    <td>O(1)</td>
+                    <td>O(1)</td>
+                    <td>O(1)</td>
+                </tr>
+                <tr>
+                    <td><strong>Time (Avg/Worst)</strong></td>
+                    <td>O(n)</td>
+                    <td>O(n)</td>
+                    <td>O(1)</td>
+                    <td>O(1)</td>
+                </tr>
+                <tr>
+                    <td><strong>Space Complexity</strong></td>
+                    <td>O(n)</td>
+                    <td>O(n)</td>
+                    <td>O(1)</td>
+                    <td>O(1)</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="grid">
+            <div class="card">
+                <h3>Key Features</h3>
+                <ul>
+                    <li>Ordered collection; supports duplicates.</li>
+                    <li>Allows <code>null</code> elements.</li>
+                    <li>Supports index-based operations (traverses from start/end whichever is closer).</li>
+                    <li><strong>Fail-fast Iterators:</strong> Throws <code>ConcurrentModificationException</code> if modified after iterator creation.</li>
+                    <li>Maintains <strong>insertion order</strong>.</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h3>Thread Safety Note</h3>
+                <p>LinkedList is <strong>not synchronized</strong>. To make it thread-safe, use:</p>
+                <code>List list = Collections.synchronizedList(new LinkedList(...));</code>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. Benefits & Drawbacks -->
+    <section>
+        <h2>Trade-offs</h2>
+        <div class="grid">
+            <div class="card" style="border-top: 4px solid var(--success);">
+                <h3 style="color: var(--success);">Benefits</h3>
+                <ul>
+                    <li>Efficient insertion and deletion.</li>
+                    <li>Dynamic size (grows/shrinks as needed).</li>
+                    <li>Uses less memory than some other structures (like doubly linked lists).</li>
+                    <li>Great for implementing Stacks and Queues.</li>
+                </ul>
+            </div>
+            <div class="card" style="border-top: 4px solid var(--danger);">
+                <h3 style="color: var(--danger);">Drawbacks</h3>
+                <ul>
+                    <li>No random access (must iterate to index).</li>
+                    <li>Search is slow (O(n)).</li>
+                    <li>Difficult to sort efficiently.</li>
+                    <li>Cannot traverse backwards (only has reference to 'next').</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. Real-World Applications -->
+    <section>
+        <h2>Real-World Applications</h2>
+        <div class="grid">
+            <div class="card">
+                <strong>OS Memory Management</strong>
+                <p>Managing blocks of memory allocation and tracking free space.</p>
+            </div>
+            <div class="card">
+                <strong>Undo/Redo Functionality</strong>
+                <p>Storing history in text editors or graphic design software.</p>
+            </div>
+            <div class="card">
+                <strong>Transportation Systems</strong>
+                <p>Representing stop schedules (e.g., train stops along a route).</p>
+            </div>
+            <div class="card">
+                <strong>Search Results</strong>
+                <p>Handling dynamic lists of items like search engine hits.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. Progressive Disclosure Sections -->
+    <section>
+        <h2>Deep Dive & Resources</h2>
+
+        <div class="accordion" onclick="toggleAccordion(this)">
+            <div class="accordion-header">
+                Common Mistakes & Pitfalls <span>+</span>
+            </div>
+            <div class="accordion-content">
+                <ul>
+                    <li><strong>Losing the Head:</strong> Forgetting to update the <code>head</code> pointer when deleting the first node.</li>
+                    <li><strong>Null Pointer Exceptions:</strong> Accessing <code>current.next</code> without checking if <code>current</code> is null.</li>
+                    <li><strong>Memory Leaks:</strong> In some languages, not properly unlinking nodes can prevent garbage collection.</li>
+                    <li><strong>Infinite Loops:</strong> Creating a cycle by pointing a node back to a previous node in the list.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="accordion" onclick="toggleAccordion(this)">
+            <div class="accordion-header">
+                Key Takeaways <span>+</span>
+            </div>
+            <div class="accordion-content">
+                <p>1. Singly Linked Lists are ideal when frequent insertions/deletions are needed but random access is not.</p>
+                <p>2. They are the building blocks for Stacks and Queues.</p>
+                <p>3. Every node is an object, and they are linked via references, meaning they don't need to be contiguous in memory.</p>
+            </div>
+        </div>
+
+        <div class="accordion" onclick="toggleAccordion(this)">
+            <div class="accordion-header">
+                External Video Resources <span>+</span>
+            </div>
+            <div class="accordion-content">
+                <ul>
+                    <li><a href="https://www.youtube.com/watch?v=NobHlGUjV3g" target="_blank">Linked List Basics - Video 1</a></li>
+                    <li><a href="https://www.youtube.com/watch?v=lC-yYCOnN8Q" target="_blank">In-depth Linked List Explanation - Video 2</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="accordion" onclick="toggleAccordion(this)">
+            <div class="accordion-header">
+                Interview Prep <span>+</span>
+            </div>
+            <div class="accordion-content">
+                <p><strong>Common Concepts:</strong> Fast/Slow pointers, reversing a list, detecting cycles.</p>
+                <p><strong>Tricky Questions:</strong> Find the middle of the list in one pass, merge two sorted lists, delete a node given only a pointer to that node.</p>
+            </div>
+        </div>
+    </section>
+
+</div>
+
+<script>
+    // Tab Logic
+    function openTab(evt, tabName) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tab-content");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tab-btn");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(tabName).style.display = "block";
+        evt.currentTarget.className += " active";
+    }
+
+    // Accordion Logic
+    function toggleAccordion(element) {
+        element.classList.toggle('open');
+        const span = element.querySelector('.accordion-header span');
+        span.innerText = element.classList.contains('open') ? '-' : '+';
+    }
+
+    // Visualizer Logic
+    let listData = [5, 10, 15];
+    const container = document.getElementById('visualizer-container');
+    const status = document.getElementById('viz-status');
+
+    function renderList() {
+        container.innerHTML = '';
+        if (listData.length === 0) {
+            container.innerHTML = '<span class="null-indicator">Head -> NULL (Empty List)</span>';
+            return;
+        }
+
+        listData.forEach((val, index) => {
+            const node = document.createElement('div');
+            node.className = 'node-viz';
+
+            let nextVal = (index === listData.length - 1) ? 'NULL' : '•';
+
+            node.innerHTML = `
+                <div class="node-box">
+                    <div class="node-val">${val}</div>
+                    <div class="node-next">${nextVal}</div>
+                </div>
+                ${index < listData.length - 1 ? '<div class="arrow">→</div>' : ''}
+            `;
+            container.appendChild(node);
+        });
+
+        if (listData.length > 0) {
+            const nullInd = document.createElement('span');
+            nullInd.className = 'null-indicator';
+            nullInd.innerText = ' → NULL';
+            container.appendChild(nullInd);
+        }
+    }
+
+    function visualAdd() {
+        const val = document.getElementById('node-input').value;
+        if (val === '') return;
+        listData.push(parseInt(val));
+        status.innerText = `Added ${val} to the tail.`;
+        renderList();
+    }
+
+    function visualRemove() {
+        const val = parseInt(document.getElementById('node-input').value);
+        const index = listData.indexOf(val);
+        if (index > -1) {
+            listData.splice(index, 1);
+            status.innerText = `Removed node with value ${val}.`;
+        } else {
+            status.innerText = `Value ${val} not found in list.`;
+        }
+        renderList();
+    }
+
+    function visualReset() {
+        listData = [5, 10, 15];
+        status.innerText = "List reset to default.";
+        renderList();
+    }
+
+    // Initialize visualizer
+    renderList();
+</script>
+
+</body>
+</html>

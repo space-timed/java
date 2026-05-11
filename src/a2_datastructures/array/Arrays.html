@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arrays - Interactive Learning Module</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-light: #eff6ff;
+            --primary-dark: #1e40af;
+            --secondary: #475569;
+            --bg: #f8fafc;
+            --surface: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --accent: #10b981;
+            --accent-light: #d1fae5;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --code-bg: #1e293b;
+            --code-text: #e2e8f0;
+            --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            --font-mono: 'Fira Code', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+            --radius: 8px;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--bg);
+            color: var(--text-main);
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: var(--shadow);
+            top: 0;
+            z-index: 100;
+        }
+
+        h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
+        h2 { font-size: 1.75rem; color: var(--primary-dark); margin: 2rem 0 1rem; border-bottom: 2px solid var(--border); padding-bottom: 0.5rem; }
+        h3 { font-size: 1.25rem; color: var(--text-main); margin: 1.5rem 0 0.75rem; }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 2rem;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            position: sticky;
+            top: 120px;
+            height: max-content;
+            background: var(--surface);
+            padding: 1.5rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+        }
+        
+        .sidebar h3 { margin-top: 0; border-bottom: 1px solid var(--border); padding-bottom: 0.5rem; }
+        .sidebar ul { list-style: none; padding-left: 0; }
+        .sidebar li { margin-bottom: 0.5rem; }
+        .sidebar a {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-weight: 500;
+            transition: color 0.2s;
+            display: block;
+            padding: 0.25rem 0;
+        }
+        .sidebar a:hover, .sidebar a.active { color: var(--primary); }
+
+        /* Main Content Cards */
+        .content-section {
+            background: var(--surface);
+            padding: 2rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+        }
+
+        p { margin-bottom: 1rem; }
+        ul, ol { margin-bottom: 1rem; padding-left: 1.5rem; }
+        li { margin-bottom: 0.5rem; }
+
+        /* Note Callouts */
+        .callout {
+            background: var(--primary-light);
+            border-left: 4px solid var(--primary);
+            padding: 1rem 1.5rem;
+            border-radius: 0 var(--radius) var(--radius) 0;
+            margin: 1.5rem 0;
+        }
+
+        .callout.warning {
+            background: #fffbeb;
+            border-left-color: var(--warning);
+        }
+
+        /* Interactive Visual Model */
+        .visual-model {
+            background: #f1f5f9;
+            padding: 2rem;
+            border-radius: var(--radius);
+            margin: 1.5rem 0;
+            text-align: center;
+        }
+        .array-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 2px;
+            margin: 2rem 0;
+        }
+        .array-element {
+            width: 80px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .array-element:hover { transform: translateY(-5px); }
+        .array-box {
+            background: var(--surface);
+            border: 2px solid var(--primary);
+            height: 80px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-mono);
+            font-weight: bold;
+            font-size: 1.2rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        .array-index {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 0.5rem;
+            font-family: var(--font-mono);
+        }
+        .array-address {
+            font-size: 0.75rem;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+            font-family: var(--font-mono);
+        }
+        .array-element.active .array-box {
+            background: var(--primary);
+            color: white;
+            transform: scale(1.05);
+        }
+        .formula-box {
+            background: var(--surface);
+            border: 1px dashed var(--secondary);
+            padding: 1rem;
+            border-radius: var(--radius);
+            font-family: var(--font-mono);
+            display: inline-block;
+            margin-top: 1rem;
+            min-width: 300px;
+        }
+
+        /* Code Blocks */
+        pre {
+            background: var(--code-bg);
+            color: var(--code-text);
+            padding: 1.5rem;
+            border-radius: var(--radius);
+            overflow-x: auto;
+            margin: 1.5rem 0;
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+        code { font-family: inherit; }
+        .inline-code {
+            background: #e2e8f0;
+            color: var(--danger);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: var(--font-mono);
+            font-size: 0.9em;
+        }
+
+        /* Buttons & Links */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--primary);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--radius);
+            text-decoration: none;
+            font-weight: bold;
+            transition: background 0.2s;
+            margin: 0.5rem 0;
+            border: none;
+            cursor: pointer;
+        }
+        .btn:hover { background: var(--primary-dark); }
+        .btn svg { width: 20px; height: 20px; fill: currentColor; }
+
+        /* Tables */
+        .table-container {
+            overflow-x: auto;
+            margin: 1.5rem 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--surface);
+        }
+        th, td {
+            padding: 1rem;
+            border: 1px solid var(--border);
+            text-align: left;
+        }
+        th { background: var(--primary-light); color: var(--primary-dark); font-weight: 600; }
+        tr:hover { background: #f8fafc; }
+
+        /* Complexity Colors */
+        .comp-best { color: #059669; font-weight: bold; }
+        .comp-avg, .comp-worst { color: #d97706; font-weight: bold; }
+
+        /* Tabs */
+        .tabs { margin: 2rem 0; }
+        .tab-buttons { display: flex; border-bottom: 2px solid var(--border); margin-bottom: 1rem; }
+        .tab-btn {
+            padding: 1rem 2rem;
+            background: none;
+            border: none;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            cursor: pointer;
+            position: relative;
+            outline: none;
+        }
+        .tab-btn.active { color: var(--primary); }
+        .tab-btn.active::after {
+            content: ''; position: absolute; bottom: -2px; left: 0; right: 0;
+            height: 2px; background: var(--primary);
+        }
+        .tab-panel { display: none; animation: fadeIn 0.3s ease; }
+        .tab-panel.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Accordions */
+        details {
+            background: #f8fafc;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            margin-bottom: 1rem;
+        }
+        summary {
+            padding: 1.25rem;
+            font-weight: 600;
+            cursor: pointer;
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        summary::-webkit-details-marker { display: none; }
+        summary::after {
+            content: '+'; font-size: 1.5rem; color: var(--primary); transition: transform 0.2s;
+        }
+        details[open] summary::after { transform: rotate(45deg); }
+        .details-content {
+            padding: 0 1.25rem 1.25rem;
+            border-top: 1px solid var(--border);
+            margin-top: 0.5rem;
+            padding-top: 1rem;
+        }
+
+        /* Checkbox List */
+        .checklist { list-style: none; padding-left: 0; }
+        .checklist li {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            padding: 1rem;
+            border-radius: var(--radius);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: background 0.2s;
+        }
+        .checklist li:hover { background: var(--primary-light); }
+        .checklist input[type="checkbox"] {
+            width: 20px; height: 20px; cursor: pointer; accent-color: var(--primary);
+        }
+        .checklist input[type="checkbox"]:checked + span {
+            text-decoration: line-through; color: var(--text-muted);
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .container { grid-template-columns: 1fr; }
+            .sidebar { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Arrays</h1>
+    <p>A comprehensive, interactive guide to understanding and mastering Arrays.</p>
+</header>
+
+<div class="container">
+    <aside class="sidebar">
+        <h3>Contents</h3>
+        <nav>
+            <ul id="toc">
+                <li><a href="#definition">1. Definition & View</a></li>
+                <li><a href="#java-details">2. Java Implementation</a></li>
+                <li><a href="#code-examples">3. Code Examples</a></li>
+                <li><a href="#methods">4. Built-in Methods</a></li>
+                <li><a href="#comparisons">5. Comparisons</a></li>
+                <li><a href="#complexity">6. Time & Space Complexity</a></li>
+                <li><a href="#pros-cons">7. Pros, Cons & Apps</a></li>
+                <li><a href="#interview">8. Interview Questions</a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <main>
+        <!-- Section 1: Definition -->
+        <section id="definition" class="content-section">
+            <h2>Definition</h2>
+            <p>An array is a collection of items stored at <strong>contiguous memory locations</strong>. The idea is to store multiple items of the same type together. This makes it easier to calculate the position of each element by simply adding an offset to a base value, i.e., the memory location of the first element of the array (generally denoted by the name of the array).</p>
+            
+            <div class="callout warning">
+                <strong>Important Constraint:</strong> An array's size is set at the time it is created, and it cannot be changed.
+            </div>
+
+            <a href="https://www.youtube.com/watch?v=_Wf2rbL9wQU" target="_blank" class="btn">
+                <svg viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
+                Watch Basic Explainer Video
+            </a>
+
+            <h3>Interactive Visual Model: The Staircase Analogy</h3>
+            <p>The concept can be looked at as a top-level view of a staircase where you are at the base of the staircase. Each element can be uniquely identified by their index in the array (in a similar way as you could identify your friends by the step on which they were on in the example).</p>
+            
+            <div class="visual-model">
+                <p><strong>Click an element to see how its memory address is calculated.</strong><br><small>Assume Base Address = 1000, Data Size = 4 bytes</small></p>
+                <div class="array-container" id="array-visual">
+                    <!-- JS will populate this -->
+                </div>
+                <div class="formula-box" id="formula-display">
+                    Select an element above.<br><br>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Detailed Explanation -->
+        <section id="java-details" class="content-section">
+            <h2>Detailed Explanation (Java Context)</h2>
+            <p>In Java, arrays have specific characteristics and rules:</p>
+            <ul class="feature-list">
+                <li>All arrays are <strong>dynamically allocated</strong>.</li>
+                <li>Arrays are stored in <span class="inline-code">contagious memory [consecutive memory locations]</span>.</li>
+                <li>Since arrays are objects in Java, we can find their length using the object property <span class="inline-code">length</span>. This is different from C/C++, where we find length using <span class="inline-code">sizeof</span>.</li>
+                <li>A Java array variable can also be declared like other variables with <span class="inline-code">[]</span> after the data type.</li>
+                <li>The variables in the array are ordered, and each has an index beginning from <span class="inline-code">0</span>.</li>
+                <li>Java array can also be used as a static field, a local variable, or a method parameter.</li>
+                <li>The size of an array must be specified by <span class="inline-code">int</span> or <span class="inline-code">short</span> value and not <span class="inline-code">long</span>.</li>
+                <li>The direct superclass of an array type is <span class="inline-code">Object</span>.</li>
+                <li>Every array type implements the interfaces <span class="inline-code">Cloneable</span> and <span class="inline-code">java.io.Serializable</span>.</li>
+                <li>This storage of arrays helps us randomly accessing the elements of an array <strong>[Support Random Access]</strong>.</li>
+                <li>The size of the array cannot be altered(once initialized). However, an array reference can be made to point to another array.</li>
+                <li>An array's size is set at the time it is created, and it cannot be changed.</li>
+            </ul>
+        </section>
+
+        <!-- Section 3: Code Examples -->
+        <section id="code-examples" class="content-section">
+            <h2>Creation & Initialization</h2>
+            <p>Here is an example of how to create, initialize, and declare an array in Java:</p>
+            
+<pre><code>// create an array of strings with a size of 5
+String[] names = new String[5];
+
+// initialize the first element in the array
+names[0] = "Alice";
+
+// initialize the second element in the array
+names[1] = "Bob";
+
+// and so on...
+names[2] = "Carol";
+names[3] = "David";
+names[4] = "Emily";
+
+// declare an array of integers and initialize it with the values 1, 2, 3, 4, and 5
+int[] numbers = {1, 2, 3, 4, 5};
+
+int intArray[];          // declaring array
+intArray = new int[20];  // allocating memory to array
+
+int[] intArray = new int[20]; // combining both statements in one</code></pre>
+
+            <p>In the first example, we create an array of strings with a size of 5. This means that the array can hold up to 5 strings. We then initialize the first element in the array by assigning a value to the element at index 0. We do the same for the second element at index 1, and so on.</p>
+            <p>In the second example, we declare an array of integers and initialize it with the values 1, 2, 3, 4, and 5. This is a shortcut that allows us to create and initialize the array in a single step.</p>
+            
+            <p>Once an array is created, we can access its elements by using the array's name followed by the element's index in square brackets. For example, we could retrieve the second element in the names array like this:</p>
+<pre><code>String secondName = names[1];</code></pre>
+
+            <p>We can also use a loop to iterate over the elements in an array and perform some action on each element. Here is an example of how to print all the elements in the <span class="inline-code">names</span> array:</p>
+<pre><code>for (int i = 0; i < names.length; i++) {
+    System.out.println(names[i]);
+}</code></pre>
+        </section>
+
+        <!-- Section 4: Built-in Methods -->
+        <section id="methods" class="content-section">
+            <h2>Important Methods to Work with Arrays</h2>
+            <p>Java provides several built-in methods for working with arrays. Some of the most common array methods are:</p>
+            
+            <div class="callout">
+                <ul style="margin:0; padding-left:1.2rem;">
+                    <li><strong><span class="inline-code">Arrays.sort()</span>:</strong> This method sorts the elements in an array in ascending order. It can be used to sort arrays of primitive types, such as int, double, and char, as well as arrays of objects, such as strings and custom objects.</li>
+                    <li><strong><span class="inline-code">Arrays.binarySearch()</span>:</strong> This method performs a binary search on a sorted array and returns the index of the specified element. If the element is not found, it returns a negative value.</li>
+                    <li><strong><span class="inline-code">Arrays.copyOf()</span>:</strong> This method creates a new array with the specified size and copies the elements from the original array to the new array.</li>
+                    <li><strong><span class="inline-code">Arrays.copyOfRange()</span>:</strong> This method creates a new array with the specified size and copies a range of elements from the original array to the new array.</li>
+                    <li><strong><span class="inline-code">Arrays.fill()</span>:</strong> This method fills an array with the specified value.</li>
+                    <li><strong><span class="inline-code">Arrays.equals()</span>:</strong> This method compares two arrays and returns true if they are equal, and false if they are not equal.</li>
+                    <li><strong><span class="inline-code">Arrays.toString()</span>:</strong> This method returns a string representation of the contents of an array.</li>
+                    <li><strong><span class="inline-code">Arrays.asList()</span>:</strong> This method creates a list from an array.</li>
+                </ul>
+            </div>
+
+            <p>Here is an example of how to use some of these methods:</p>
+<pre><code>int[] numbers = {5, 3, 7, 1, 2};
+
+// sort the array in ascending order
+Arrays.sort(numbers);
+
+// search for the number 5 in the array
+int index = Arrays.binarySearch(numbers, 5);
+
+// create a new array with a size of 10
+int[] bigger = Arrays.copyOf(numbers, 10);
+
+// fill the remaining elements in the new array with 0
+Arrays.fill(bigger, numbers.length, bigger.length, 0);
+
+// compare the original array with the new array
+boolean equal = Arrays.equals(numbers, bigger);
+
+// create a list from the new array
+List&lt;Integer&gt; list = Arrays.asList(bigger);</code></pre>
+        </section>
+
+        <!-- Section 5: Comparisons -->
+        <section id="comparisons" class="content-section">
+            <h2>Comparisons</h2>
+            <div class="tabs">
+                <div class="tab-buttons">
+                    <button class="tab-btn active" onclick="openTab(event, 'tab-arraylist')">Arrays vs ArrayLists</button>
+                    <button class="tab-btn" onclick="openTab(event, 'tab-linkedlist')">Arrays vs Linked Lists</button>
+                </div>
+
+                <div id="tab-arraylist" class="tab-panel active">
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Feature</th>
+                                    <th>Arrays</th>
+                                    <th>ArrayList</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Definition</strong></td>
+                                    <td>An Array is a collection of similar data types stored in contiguous memory locations.</td>
+                                    <td>An ArrayList is a class of Java Collections framework which contains popular classes like Vector, HashMap, etc.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Static/ Dynamic</strong></td>
+                                    <td>static in size.</td>
+                                    <td>dynamic in size.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Resizable</strong></td>
+                                    <td>An array is not resizable as it is a fixed-length data structure.</td>
+                                    <td>An ArrayList is a variable-length data structure that can be resized. As an element is being added to an ArrayList, JVM checks to see if it has enough space by calling the ensureCapacity method. If a space exists, it adds the element to the ArrayList, otherwise, it resizes the ArrayList.<br><br>In the resizing process, an array of a larger size is created, the old array is copied to the new array using Arrays.copyOf, and the new array is then assigned to the existing array.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Initialization</strong></td>
+                                    <td>Size of an array should be declared directly or indirectly while initializing.</td>
+                                    <td>An instance of ArrayList can be created without specifying its size. Java creates an ArrayList of default size.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Performance</strong></td>
+                                    <td>It is fast in comparison to ArrayList as it has a fixed size.</td>
+                                    <td>Slow as the resize operation in ArrayList slows down the performance</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Primitive/ Generic type</strong></td>
+                                    <td>Can store both objects and primitives type.</td>
+                                    <td>Arraylist automatically converts primitive type to object.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Iterating Values</strong></td>
+                                    <td>A for loop or for each loop is used to iterate over an array.</td>
+                                    <td>An iterator is used to iterate over ArrayList.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Length</strong></td>
+                                    <td>It provides a length variable that denotes the length of an array.</td>
+                                    <td>size() method can be used to determine the size of ArrayList.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Single/ Multi-Dimensional</strong></td>
+                                    <td>Can be multi-dimensional.</td>
+                                    <td>Single-dimensional.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div id="tab-linkedlist" class="tab-panel">
+                    <ul class="feature-list" style="margin-top:1rem;">
+                        <li><strong>Size:</strong> The size of an array cannot be altered at runtime since data can only be stored in contiguous blocks of memory in an array. However, due to the node structure of a linked list, its size can be altered easily since each node points to the next one such that data can exist at scattered (non-contiguous) addresses.</li>
+                        <li><strong>Memory allocation:</strong> For arrays, memory is allocated at compile time whereas for linked lists memory is allocated at runtime. But, a dynamically allocated array also allocates memory at runtime.</li>
+                        <li><strong>Memory efficiency:</strong> For the same number of elements, the linked list uses more memory due to its node structure since each node stores a reference to the next node along with the data. However, linked lists may use less memory overall compared to arrays when there is uncertainty about size or there are large variations in the size of data elements.</li>
+                        <li><strong>Execution time:</strong> In the case of a linked list, all the previous elements must be traversed to reach any element whereas elements in an array can be accessed directly using their index. As a result, some operations such as modifying an element are faster in arrays, while some other operations such as inserting an element are faster in linked lists.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 6: Complexity -->
+        <section id="complexity" class="content-section">
+            <h2>Time & Space Complexity</h2>
+            <a href="https://www.youtube.com/watch?v=B2KusJcbVIg" target="_blank" class="btn" style="margin-bottom:1rem;">
+                <svg viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
+                Watch Time Complexity Video
+            </a>
+            
+            <h3>Time Complexity</h3>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Data structure</th>
+                            <th>Access</th>
+                            <th>Search</th>
+                            <th>Insertion</th>
+                            <th>Deletion</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Arrays</strong></td>
+                            <td>
+                                a. Best case: <span class="comp-best">O(1)</span><br>
+                                b. Average case: <span class="comp-best">O(1)</span><br>
+                                c. Worst case: <span class="comp-best">O(1)</span>
+                            </td>
+                            <td>
+                                a. Best case: <span class="comp-best">O(1)</span><br>
+                                b. Average case: <span class="comp-avg">O(n)</span><br>
+                                c. Worst case: <span class="comp-worst">O(n)</span>
+                            </td>
+                            <td>
+                                a. Best case: <span class="comp-best">O(1)</span><br>
+                                b. Average case: <span class="comp-avg">O(n)</span><br>
+                                c. Worst case: <span class="comp-worst">O(n)</span>
+                            </td>
+                            <td>
+                                a. Best case: <span class="comp-best">O(1)</span><br>
+                                b. Average case: <span class="comp-avg">O(n)</span><br>
+                                c. Worst case: <span class="comp-worst">O(n)</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Space Complexity</h3>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Data structure</th>
+                            <th>Access</th>
+                            <th>Search</th>
+                            <th>Insertion</th>
+                            <th>Deletion</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Arrays</strong></td>
+                            <td><span class="comp-best">O(1)</span></td>
+                            <td><span class="comp-avg">O(n)</span></td>
+                            <td><span class="comp-avg">O(n)</span></td>
+                            <td><span class="comp-avg">O(n)</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Section 7: Pros, Cons & Apps -->
+        <section id="pros-cons" class="content-section">
+            <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
+                
+                <div class="card">
+                    <h3 style="color:var(--primary); margin-top:0;">Benefits of using arrays</h3>
+                    <ul>
+                        <li>Arrays allow for the efficient storage and retrieval of data by using a numeric index.</li>
+                        <li>Arrays provide a way to organize and manipulate large amounts of data in a structured manner.</li>
+                        <li>Arrays allow for the easy iteration and traversal of data using looping constructs such as for and foreach loops.</li>
+                        <li>Arrays allow for the easy implementation of common data structures such as stacks, queues, and lists.</li>
+                        <li>Arrays provide a way to perform bulk operations on data, such as sorting, filtering, and transforming, using methods from the Java Collections framework.</li>
+                        <li>Arrays allow for the efficient use of memory by allocating a contiguous block of memory to store data, reducing the overhead of individual object creation and garbage collection.</li>
+                        <li>Arrays provide a way to implement algorithms that require the efficient manipulation of large amounts of data, such as search and sorting algorithms.</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3 style="color:var(--danger); margin-top:0;">Disadvantages of arrays</h3>
+                    <ul>
+                        <li>You need to specify how many elements you're going to store in your array ahead of time and We can not increase or decrease the size of the Array after creation.</li>
+                        <li>You have to shift the other elements to fill in or close gaps, which takes worst-case O(n) time.</li>
+                        <li>Can store a single type of primitives only.</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3 style="color:var(--accent); margin-top:0;">Real-world applications</h3>
+                    <ul>
+                        <li>Storing and organizing large amounts of data, such as a list of customer names, product prices, or inventory levels.</li>
+                        <li>Implementing data structures such as stacks, queues, and lists to store and manipulate data in a structured manner.</li>
+                        <li>Performing bulk operations on data, such as sorting, filtering, and transforming, using methods from the Java Collections framework.</li>
+                        <li>Implementing algorithms that require the efficient manipulation of large amounts of data, such as search and sorting algorithms.</li>
+                        <li>Storing and processing multi-dimensional data, such as a matrix or grid of values, for applications such as image processing and scientific simulations.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 8: Interview Questions -->
+        <section id="interview" class="content-section">
+            <h2>Interview Questions & Prep</h2>
+            
+            <h3>Conceptual Questions (Click to Reveal)</h3>
+            <details>
+                <summary>Why is the complexity of fetching from an Array O(1)?</summary>
+                <div class="details-content">
+                    <p>In an Array, objects are stored in continuous memory location. So, if you know the address of the base object then you will be able to find the address of the ith object.</p>
+                    <pre><code>address(a[i]) = address(a[0]) + i*size(object)</code></pre>
+                    <p>This term is independent of n, so the time complexity of fetching from an Array is O(1).</p>
+                </div>
+            </details>
+            
+            <details>
+                <summary>What is the default value of Array in Java?</summary>
+                <div class="details-content">
+                    <p>If we don't specify the values by ourselves, then Java assigns default values in them which are <span class="inline-code">0</span> for byte, short, int, and long, <span class="inline-code">0.0</span> for float and double, <span class="inline-code">false</span> for boolean, and <span class="inline-code">null</span> for objects respectively.</p>
+                </div>
+            </details>
+
+            <details>
+                <summary>Where is an Array stored in JVM memory?</summary>
+                <div class="details-content">
+                    <p>An Array is an object in java. So, Array is stored in heap memory in Java Virtual Machine.</p>
+                </div>
+            </details>
+
+            <details>
+                <summary>When will we get ArrayIndexOutOfBounds Exception?</summary>
+                <div class="details-content">
+                    <p><span class="inline-code">ArrayIndexOutOfBounds</span> is a runtime exception that occurs when the program tries to access the invalid index of an array such as an Index higher than the size of the array or a negative index.</p>
+                </div>
+            </details>
+
+            <details>
+                <summary>How do you remove a particular element from an array?</summary>
+                <div class="details-content">
+                    <p>You can't directly remove elements from the original array, as arrays are fixed sets and the size can't change therefore the interviewer is looking for you to suggest an alternate solution and address the issue that the question presents. The best way to remove an element would be to create a new array. In this array, you could include copies of elements of the first array and omit only the element you want to remove.</p>
+                    <p>Another approach is searching for the target element in the array and then moving all the elements in one position back which are on the right side of the target element.</p>
+                </div>
+            </details>
+
+            <h3 style="margin-top:2rem;">Programming / LeetCode Checklist</h3>
+            <p>Track your practice progress by checking off these common array problems:</p>
+            
+            <details open style="border: 2px solid var(--primary);">
+                <summary style="background:var(--primary-light);"><strong>Featured:</strong> How do you merge two sorted arrays into one sorted array?</summary>
+                <div class="details-content">
+                    <p>During a programming interview, the employer may ask you to demonstrate your ability to work with more complex coding functions, such as merging arrays.</p>
+                    <p><strong>Approach 1:</strong><br>
+                    To merge two arrays, you can create a new array of size equal to the sum of two arrays. After that, you can copy the elements from the first array into the new one. Then you can traverse the second array and insert elements from it into the new one using insertion sort. This method takes:<br>
+                    Time complexity: <span class="inline-code">O(n1 * n2)</span><br>
+                    Extra Space: <span class="inline-code">O(n1+n2)</span></p>
+                    <p><strong>Approach 2 using Heap:</strong><br>
+                    1. Convert the second array to min-heap.<br>
+                    2. Now, the last M elements of the sorted merged array are in the min_heap or second array.<br>
+                    3. Apply in-place heapsort to the second array to sort them.</p>
+                </div>
+            </details>
+
+            <ul class="checklist">
+                <li><input type="checkbox"> <span>How do you find the maximum or minimum element in an array of integers?</span></li>
+                <li><input type="checkbox"> <span>How do you find the average of the elements in an array of integers?</span></li>
+                <li><input type="checkbox"> <span>How do you find the second-largest element in an array of integers?</span></li>
+                <li><input type="checkbox"> <span>How do you reverse the order of the elements in an array?</span></li>
+                <li><input type="checkbox"> <span>How do you find the common elements in two sorted arrays?</span></li>
+                <li><input type="checkbox"> <span>How do you remove duplicates from an array?</span></li>
+                <li><input type="checkbox"> <span>How do you check if an array contains a specific value?</span></li>
+                <li><input type="checkbox"> <span>How do you shuffle the elements in an array?</span></li>
+                <li><input type="checkbox"> <span>How do you rotate the elements in an array by a certain number of positions?</span></li>
+                <li><input type="checkbox"> <span>How do you find the two elements in an array that have the largest difference?</span></li>
+                <li><input type="checkbox"> <span>How do you find the sum of the elements in an array of integers?</span></li>
+                <li><input type="checkbox"> <span>How do you find the product of the elements in an array of integers?</span></li>
+                <li><input type="checkbox"> <span>How do you find the number of occurrences of a specific value in an array?</span></li>
+                <li><input type="checkbox"> <span>How do you find the first or last occurrence of a specific value in an array?</span></li>
+                <li><input type="checkbox"> <span>How do you find the kth smallest or largest element in an array of integers?</span></li>
+                <li><input type="checkbox"> <span>How do you find the median of the elements in an array of integers?</span></li>
+                <li><input type="checkbox"> <span>How do you find the mode of the elements in an array of integers?</span></li>
+                <li><input type="checkbox"> <span>How do you find the range of the elements in an array of integers?</span></li>
+                <li><input type="checkbox"> <span>How do you find the standard deviation of the elements in an array of integers?</span></li>
+                <li><input type="checkbox"> <span>How do you find the running sum or running product of the elements in an array of integers?</span></li>
+            </ul>
+
+            <h3 style="margin-top:2rem;">Tricky Interview questions</h3>
+            <p><em>No additional tricky questions provided in the current module. Check back later!</em></p>
+
+            <h3 style="margin-top:2rem;">Additional links</h3>
+            <p><em>No additional links provided in the current module. Keep practicing!</em></p>
+        </section>
+
+    </main>
+</div>
+
+<script>
+    // Tab Switching Logic
+    function openTab(evt, tabId) {
+        let i, tabcontent, tablinks;
+        
+        tabcontent = document.getElementsByClassName("tab-panel");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+            tabcontent[i].classList.remove("active");
+        }
+        
+        tablinks = document.getElementsByClassName("tab-btn");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        
+        document.getElementById(tabId).style.display = "block";
+        document.getElementById(tabId).classList.add("active");
+        evt.currentTarget.className += " active";
+    }
+
+    // ScrollSpy for Sidebar Navigation
+    const sections = document.querySelectorAll('.content-section');
+    const navLinks = document.querySelectorAll('.sidebar nav a');
+
+    window.addEventListener('scroll', () => {
+        let current = '';
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.clientHeight;
+            if (scrollY >= (sectionTop - 150)) {
+                current = section.getAttribute('id');
+            }
+        });
+
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href').includes(current)) {
+                link.classList.add('active');
+            }
+        });
+    });
+
+    // Array Visual Model Interactive Logic
+    const arrayData = ["Alice", "Bob", "Carol", "David", "Emily"];
+    const baseAddress = 1000;
+    const elementSize = 4; // Assuming 4 bytes for example calculation
+    const container = document.getElementById('array-visual');
+    const formulaBox = document.getElementById('formula-display');
+
+    arrayData.forEach((val, index) => {
+        const memAddr = baseAddress + (index * elementSize);
+        
+        const elDiv = document.createElement('div');
+        elDiv.className = 'array-element';
+        
+        elDiv.innerHTML = `
+            <div class="array-address">${memAddr}</div>
+            <div class="array-box">"${val.charAt(0)}"</div>
+            <div class="array-index">index: ${index}</div>
+        `;
+        
+        elDiv.addEventListener('click', () => {
+            // Remove active class from all
+            document.querySelectorAll('.array-element').forEach(el => el.classList.remove('active'));
+            // Add active to clicked
+            elDiv.classList.add('active');
+            // Update formula
+            formulaBox.innerHTML = `
+                <strong style="color:var(--primary);">Calculating address for index ${index}:</strong><br><br>
+                address(a[${index}]) = address(a[0]) + (index * size)<br>
+                address(a[${index}]) = ${baseAddress} + (${index} * ${elementSize})<br>
+                address(a[${index}]) = ${baseAddress} + ${index * elementSize}<br>
+                <strong>Result Address: <span style="color:var(--accent);">${memAddr}</span></strong>
+            `;
+        });
+        
+        container.appendChild(elDiv);
+    });
+</script>
+
+</body>
+</html>
