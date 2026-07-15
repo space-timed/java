@@ -27,14 +27,9 @@ system design interview : volume 2 by alex xu
 12. digital wallet
 13. stock exchange
 
-more questions
-1. ride-sharing system
-2. food delivery system
-3. ticket booking system
-4. multiplayer online game
-5. content delivery network (CDN)
-6. recommendation system
-7. file versioning system
-8. podcast streaming service
-9. fitness tracking system
-10. virtual classroom platform
+design gurus
+
+
+
+hello interview
+
