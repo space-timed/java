@@ -13,7 +13,7 @@ public class BinarySearch {
 		else
 			System.out.println(numberToSearch + " found at index " + index);
 
-		int indexRecursive = binarySearchRecursive(arr, numberToSearch, 0, arr.length);
+		int indexRecursive = binarySearchRecursive(arr, numberToSearch, 0, arr.length - 1);
 		if (indexRecursive < 0)
 			System.out.println("No such element found in array");
 		else
@@ -39,18 +39,17 @@ public class BinarySearch {
 	}
 
 	private static int binarySearchRecursive(int arr[], int x, int start, int end) {
-		int mid = (start + end) / 2;
-		if (end < start) {
+		if (start > end) {
 			return -1;
 		}
-		if (x < arr[mid])
-			binarySearchRecursive(arr, x, start, mid - 1);
-		else if (x > arr[mid])
-			binarySearchRecursive(arr, x, mid + 1, end);
-		else if (x == arr[mid]) {
+		int mid = start + (end - start) / 2;
+		if (x < arr[mid]) {
+			return binarySearchRecursive(arr, x, start, mid - 1);
+		} else if (x > arr[mid]) {
+			return binarySearchRecursive(arr, x, mid + 1, end);
+		} else {
 			return mid;
 		}
-		return mid;
 	}
 
 }
