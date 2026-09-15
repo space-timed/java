@@ -8,6 +8,8 @@ package a1_bigo.space;
 public class ConstantSpace {
     public static void main(String[] args) {
         // Empty main method
+        System.out.println("Demonstrating Constant Space Complexity - O(1)");
+        swapVariables();
     }
 
     /**
