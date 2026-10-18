@@ -29,7 +29,7 @@
 29. **How do you illustrate a try catch example in Java?**
 30. **Write a Java program to show a `NullPointerException`.**
 
-**String a8_programs:**
+**String a8_tries:**
 
 1. ****print all permutations of string****
 2. ****Write a program to calculate the total number of characters in the String****
