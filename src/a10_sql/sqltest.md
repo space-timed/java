@@ -1,0 +1,494 @@
+# SQL Practice Test Paper
+
+## Table 1: Worker
+
+**Columns**
+
+- `WORKER_ID`: INT NOT NULL PRIMARY KEY AUTO_INCREMENT
+- `FIRST_NAME`: CHAR(25)
+- `LAST_NAME`: CHAR(25)
+- `SALARY`: INT
+- `JOINING_DATE`: DATETIME
+- `DEPARTMENT`: CHAR(25)
+
+**Sample Records**
+
+| WORKER_ID | FIRST_NAME | LAST_NAME | SALARY | JOINING_DATE | DEPARTMENT |
+| --- | --- | --- | --- | --- | --- |
+| 1 | Emma | Taylor | 100000 | 2021-02-20 09:00:00 | HR |
+| 2 | Olivia | Smith | 80000 | 2021-06-11 09:00:00 | Admin |
+| 3 | Daniel | Brown | 300000 | 2021-02-20 09:00:00 | HR |
+| 4 | Michael | Johnson | 500000 | 2021-02-20 09:00:00 | Admin |
+| 5 | David | Clark | 500000 | 2021-06-11 09:00:00 | Admin |
+| 6 | William | Davis | 200000 | 2021-06-11 09:00:00 | Account |
+| 7 | Joseph | Anderson | 75000 | 2021-01-20 09:00:00 | Account |
+| 8 | Jessica | Wilson | 90000 | 2021-04-11 09:00:00 | Admin |
+
+---
+
+## Table 2: Bonus
+
+**Columns**
+
+- `WORKER_REF_ID`: INT (Foreign Key referencing Worker.WORKER_ID)
+- `BONUS_AMOUNT`: INT
+- `BONUS_DATE`: DATETIME
+
+**Sample Records**
+
+| WORKER_REF_ID | BONUS_AMOUNT | BONUS_DATE |
+| --- | --- | --- |
+| 1 | 5000 | 2023-02-20 00:00:00 |
+| 2 | 3000 | 2023-06-11 00:00:00 |
+| 3 | 4000 | 2023-02-20 00:00:00 |
+| 1 | 4500 | 2023-02-20 00:00:00 |
+| 2 | 3500 | 2023-06-11 00:00:00 |
+
+---
+
+## Table 3: Title
+
+**Columns**
+
+- `WORKER_REF_ID`: INT (Foreign Key referencing Worker.WORKER_ID)
+- `WORKER_TITLE`: CHAR(25)
+- `AFFECTED_FROM`: DATETIME
+
+**Sample Records**
+
+| WORKER_REF_ID | WORKER_TITLE | AFFECTED_FROM |
+| --- | --- | --- |
+| 1 | Manager | 2023-02-20 00:00:00 |
+| 2 | Executive | 2023-06-11 00:00:00 |
+| 8 | Executive | 2023-06-11 00:00:00 |
+| 5 | Manager | 2023-06-11 00:00:00 |
+| 4 | Asst. Manager | 2023-06-11 00:00:00 |
+| 7 | Executive | 2023-06-11 00:00:00 |
+| 6 | Lead | 2023-06-11 00:00:00 |
+| 3 | Lead | 2023-06-11 00:00:00 |
+
+---
+
+## Questions
+
+### Question 1
+
+**Query:** Retrieve FIRST_NAME from the Worker table with the column alias WORKER_NAME.
+
+**Solution:**
+
+
+
+### Question 2
+
+**Query:** Convert and display all FIRST_NAME values from the Worker table in uppercase.
+
+**Solution:**
+
+
+
+### Question 3
+
+**Query:** Retrieve all unique department names from the Worker table without duplicates.
+
+**Solution:**
+
+
+
+### Question 4
+
+**Query:** Extract the first 3 characters of FIRST_NAME for all workers.
+
+**Solution:**
+
+
+
+### Question 5
+
+**Query:** Find the 1-based character position of the letter 'a' in the first name 'Michael'.
+
+**Solution:**
+
+
+
+### Question 6
+
+**Query:** Retrieve FIRST_NAME from the Worker table with all trailing whitespace removed.
+
+**Solution:**
+
+
+
+### Question 7
+
+**Query:** Retrieve DEPARTMENT from the Worker table with all leading whitespace removed.
+
+**Solution:**
+
+
+
+### Question 8
+
+**Query:** Retrieve distinct DEPARTMENT names along with the character length of each name, aliased as Department_Length.
+
+**Solution:**
+
+
+
+### Question 9
+
+**Query:** Retrieve FIRST_NAME from the Worker table with all occurrences of lowercase 'a' replaced by uppercase 'A'.
+
+**Solution:**
+
+
+
+### Question 10
+
+**Query:** Concatenate FIRST_NAME and LAST_NAME separated by a space into a single column aliased as COMPLETE_NAME.
+
+**Solution:**
+
+
+
+### Question 11
+
+**Query:** Retrieve all worker records, sorted alphabetically by FIRST_NAME in ascending order.
+
+**Solution:**
+
+
+
+### Question 12
+
+**Query:** Retrieve all worker records sorted by FIRST_NAME in ascending order, and then by DEPARTMENT in descending order.
+
+**Solution:**
+
+
+
+### Question 13
+
+**Query:** Retrieve all details of workers whose first name is either 'William' or 'Joseph'.
+
+**Solution:**
+
+
+
+### Question 14
+
+**Query:** Retrieve all details of workers whose first name is neither 'William' nor 'Joseph'.
+
+**Solution:**
+
+
+
+### Question 15
+
+**Query:** Retrieve all workers belonging to any department starting with 'Admin'.
+
+**Solution:**
+
+
+
+### Question 16
+
+**Query:** Retrieve all workers whose FIRST_NAME contains the letter 'a' (case-insensitive in standard collation).
+
+**Solution:**
+
+
+
+### Question 17
+
+**Query:** Retrieve all workers whose FIRST_NAME ends with the letter 'a'.
+
+**Solution:**
+
+
+
+### Question 18
+
+**Query:** Retrieve workers whose FIRST_NAME ends with the letter 'h' and is exactly 6 characters long.
+
+**Solution:**
+
+
+
+### Question 19
+
+**Query:** Retrieve all workers whose SALARY is between 100,000 and 500,000 (inclusive).
+
+**Solution:**
+
+
+
+### Question 20
+
+**Query:** Retrieve all workers who joined the company in February 2021.
+
+**Solution:**
+
+
+
+### Question 21
+
+**Query:** Count the total number of employees working in the 'Admin' department.
+
+**Solution:**
+
+
+
+### Question 22
+
+**Query:** Retrieve the full name (aliased as Worker_Name) and salary of workers earning between 50,000 and 100,000.
+
+**Solution:**
+
+
+
+### Question 23
+
+**Query:** Count the number of workers in each department (aliased as No_Of_Workers), ordered by headcount from highest to lowest.
+
+**Solution:**
+
+
+
+### Question 24
+
+**Query:** Retrieve the first names and designations of all workers who hold the title 'Manager'.
+
+**Solution:**
+
+
+
+### Question 25
+
+**Query:** Find duplicate entries in the Title table that share the exact same title name and effective date, along with their occurrence count.
+
+**Solution:**
+
+
+
+### Question 26
+
+**Query:** Retrieve all records from the Worker table that have an odd WORKER_ID.
+
+**Solution:**
+
+
+
+### Question 27
+
+**Query:** Retrieve all records from the Worker table that have an even WORKER_ID.
+
+**Solution:**
+
+
+
+### Question 28
+
+**Query:** Clone the schema and data from the Worker table into a new table named WorkerClone.
+
+**Solution:**
+
+
+
+### Question 29
+
+**Query:** Retrieve intersecting records that exist in both the Worker and WorkerClone tables.
+
+**Solution:**
+
+
+
+### Question 30
+
+**Query:** Retrieve records that exist in the Worker table but do NOT exist in the WorkerClone table (Set Difference).
+
+**Solution:**
+
+
+
+### Question 31
+
+**Query:** Retrieve the current database server date and timestamp.
+
+**Solution:**
+
+
+
+### Question 32
+
+**Query:** Retrieve the top 10 highest-earning employees from the Worker table.
+
+**Solution:**
+
+
+
+### Question 33
+
+**Query:** Determine the 5th highest distinct salary from the Worker table.
+
+**Solution:**
+
+
+
+### Question 34
+
+**Query:** Determine the 5th highest salary from the Worker table without using the LIMIT or TOP keywords.
+
+**Solution:**
+
+
+
+### Question 35
+
+**Query:** Find all pairs of employees who earn the exact same salary.
+
+**Solution:**
+
+
+
+### Question 36
+
+**Query:** Retrieve the second-highest salary in the company using a subquery.
+
+**Solution:**
+
+
+
+### Question 37
+
+**Query:** Display all employees from the 'HR' department duplicated twice in a single result set.
+
+**Solution:**
+
+
+
+### Question 38
+
+**Query:** Retrieve common records between the Worker and WorkerClone tables.
+
+**Solution:**
+
+
+
+### Question 39
+
+**Query:** Retrieve the first 50% of records from the Worker table based on WORKER_ID.
+
+**Solution:**
+
+
+
+### Question 40
+
+**Query:** List all departments that have fewer than 5 employees, displaying the headcount aliased as 'Number of Workers'.
+
+**Solution:**
+
+
+
+### Question 41
+
+**Query:** List all departments along with the total count of workers in each, aliased as 'Number of Workers'.
+
+**Solution:**
+
+
+
+### Question 42
+
+**Query:** Retrieve the last inserted record from the Worker table (worker with the highest WORKER_ID).
+
+**Solution:**
+
+
+
+### Question 43
+
+**Query:** Retrieve the first record from the Worker table (worker with the lowest WORKER_ID).
+
+**Solution:**
+
+
+
+### Question 44
+
+**Query:** Retrieve the last 5 records from the Worker table.
+
+**Solution:**
+
+
+
+### Question 45
+
+**Query:** Find the employee(s) who earn the highest salary in each respective department.
+
+**Solution:**
+
+
+
+### Question 46
+
+**Query:** Retrieve the top 3 highest distinct salaries from the Worker table without using LIMIT.
+
+**Solution:**
+
+
+
+### Question 47
+
+**Query:** Retrieve the 3 lowest distinct salaries from the Worker table without using LIMIT.
+
+**Solution:**
+
+
+
+### Question 48
+
+**Query:** Retrieve the 5th highest distinct salary from the Worker table.
+
+**Solution:**
+
+
+
+### Question 49
+
+**Query:** Calculate the total cumulative salary expenditure for each department.
+
+**Solution:**
+
+
+
+### Question 50
+
+**Query:** Retrieve the first name and salary of the worker(s) who earn the overall highest salary.
+
+**Solution:**
+
+
+
+### Question 51
+
+**Query:** Calculate annual salary aliased as Annual_Salary (SALARY * 12) and filter workers earning more than 1,000,000 without referencing the SELECT alias in the WHERE clause.
+
+**Solution:**
+
+
+
+### Question 52
+
+**Query:** Calculate the average salary per department for workers who joined in 2021, and display only departments where the average salary is at least 150,000.
+
+**Solution:**
+
+
+
+### Question 53
+
+**Query:** Retrieve the top 2 total compensation earners in 'HR' and 'Admin' who received at least 4,000 in total bonuses, utilizing the complete 8-stage execution pipeline (FROM -> JOIN -> WHERE -> GROUP BY -> HAVING -> SELECT -> ORDER BY -> LIMIT).
+
+**Solution:**
